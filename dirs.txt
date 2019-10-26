@@ -1,0 +1,8 @@
+lib/
+lib//translation
+lib//bugreporter
+lib//logo
+lib//logo/kv
+lib//logo/uix
+lib//logo/uix/baseclass
+lib//dialogs

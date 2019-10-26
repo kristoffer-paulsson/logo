@@ -1,0 +1,45 @@
+# This file created with KivyCreatorProject
+# <https://github.com/HeaTTheatR/KivyCreatorProgect
+#
+# Copyright © 2017 Easy
+#
+# For suggestions and questions:
+# <kivydevelopment@gmail.com>
+#
+# LICENSE: MIT
+
+#:import MDToolbar kivymd.uix.toolbar.MDToolbar
+#:import NavDrawer logo.uix.baseclass.navdrawer.NavDrawer
+#:import License logo.uix.baseclass.license.License
+#:import BaseScreen logo.uix.baseclass.basescreen.BaseScreen
+#:import About logo.uix.baseclass.about.About
+
+<StartScreen>
+    orientation: 'vertical'
+
+    NavDrawer:
+        id: nav_drawer
+
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: dp(5)
+
+            MDToolbar:
+                id: action_bar
+                background_color: app.theme_cls.primary_color
+                title: app.title
+                left_action_items: [['menu', lambda x: nav_drawer._toggle()]]
+                elevation: 10
+                md_bg_color: app.theme_cls.primary_color
+
+            ScreenManager:
+                id: manager
+
+                BaseScreen:
+                    id: base
+
+                License:
+                    id: license
+
+                About:
+                    id: about
