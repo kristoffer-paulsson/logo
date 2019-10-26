@@ -1,7 +1,9 @@
 PYI = --log=DEBUG --onefile
 
 default: init
-	pyinstaller bin/logo $(PYI)
+	pyinstaller pyinstaller.spec bin/logo \
+	-y --clean --onefile --name logo --windowed
+
 
 init:
 	pip install -r requirements.txt
