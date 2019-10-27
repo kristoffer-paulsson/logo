@@ -1,110 +1,79 @@
-# -*- coding: utf-8 -*-
-#
-# This file created with KivyCreatorProject
-# <https://github.com/HeaTTheatR/KivyCreatorProgect
-#
-# Copyright © 2017 Easy
-#
-# For suggestions and questions:
-# <kivydevelopment@gmail.com>
-#
-# LICENSE: MIT
-
-# Entry point to the application. Runs the main program.py program code.
-# In case of error, displays a window with its text.
-
 import os
-import sys
-import traceback
 
-NICK_NAME_AND_NAME_REPOSITORY = (
-    'https://github.com/kristoffer-paulsson/logo.git')
-
-directory = os.path.split(os.path.abspath(sys.argv[0]))[0]
-sys.path.insert(0, os.path.join(directory, 'lib/logo'))
-
-try:
-    import webbrowser
-    try:
-        import six.moves.urllib
-    except ImportError:
-        pass
-
-    import kivy
-    kivy.require('1.11.1')
-
-    from kivy.config import Config
-    Config.set('kivy', 'keyboard_mode', 'system')
-    Config.set('kivy', 'log_enable', 0)
-
-    from kivymd.theming import ThemeManager
-    from .bugreporter import BugReporter
-except Exception:
-    traceback.print_exc(file=open(os.path.join(directory, 'error.log'), 'w'))
-    print(traceback.print_exc())
-    sys.exit(1)
+from kivy.app import App
+from kivy.core.window import Window
+from kivy.lang import Builder
+from kivy.factory import Factory
+from kivy.uix.modalview import ModalView
+from kivymd.uix.filemanager import MDFileManager
+from kivymd.theming import ThemeManager
+from kivymd.toast import toast
 
 
-__version__ = '0.1a'
+Builder.load_string('''
+<ExampleFileManager@BoxLayout>
+    orientation: 'vertical'
+    spacing: dp(5)
+    MDToolbar:
+        id: toolbar
+        title: app.title
+        left_action_items: [['menu', lambda x: None]]
+        elevation: 10
+        md_bg_color: app.theme_cls.primary_color
+    FloatLayout:
+        MDRoundFlatIconButton:
+            text: "Open manager"
+            icon: "folder"
+            pos_hint: {'center_x': .5, 'center_y': .6}
+            on_release: app.file_manager_open()
+''')
+
+ICON = "assets/icons/dove-256.png"
 
 
-def main():
-    def create_error_monitor():
-        class _App(App):
-            theme_cls = ThemeManager()
-            theme_cls.primary_palette = 'BlueGray'
+class Example(App):
+    theme_cls = ThemeManager()
+    theme_cls.primary_palette = 'Teal'
+    title = "File Manage"
+    window_icon = ICON
+    icon = os.path.join(self.resource_path, ICON)
 
-            def build(self):
-                box = BoxLayout()
-                box.add_widget(report)
-                return box
-        app = _App()
-        app.run()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        Window.bind(on_keyboard=self.events)
+        self.manager_open = False
+        self.manager = None
 
-    app = None
+    def build(self):
+        return Factory.ExampleFileManager()
 
-    try:
-        from .logo import Logo
+    def file_manager_open(self):
+        if not self.manager:
+            self.manager = ModalView(size_hint=(1, 1), auto_dismiss=False)
+            self.file_manager = MDFileManager(
+                exit_manager=self.exit_manager, select_path=self.select_path)
+            self.manager.add_widget(self.file_manager)
+            self.file_manager.show('/')  # output manager to the screen
+        self.manager_open = True
+        self.manager.open()
 
-        app = Logo()
-        app.run()
-    except Exception:
-        from kivy.app import App
-        from kivy.uix.boxlayout import BoxLayout
+    def select_path(self, path):
+        '''It will be called when you click on the file name
+        or the catalog selection button.
+        :type path: str;
+        :param path: path to the selected directory or file;
+        '''
+        self.exit_manager()
+        toast(path)
 
-        text_error = traceback.format_exc()
-        traceback.print_exc(
-            file=open(os.path.join(directory, 'error.log'), 'w'))
+    def exit_manager(self, *args):
+        '''Called when the user reaches the root of the directory tree.'''
+        self.manager.dismiss()
+        self.manager_open = False
 
-        if app:
-            try:
-                app.stop()
-            except AttributeError:
-                app = None
-
-        def callback_report(*args):
-            '''Функция отправки баг-репорта.'''
-
-            try:
-                txt = six.moves.urllib.parse.quote(
-                    report.txt_traceback.text.encode('utf-8')
-                )
-                url = 'https://github.com/%s/issues/new?body=' % (
-                    NICK_NAME_AND_NAME_REPOSITORY + txt)
-                webbrowser.open(url)
-            except Exception:
-                sys.exit(1)
-
-        report = BugReporter(
-            callback_report=callback_report, txt_report=text_error,
-            icon_background=os.path.join('assets', 'images', 'icon.png')
-        )
-
-        if app:
-            try:
-                app.screen.clear_widgets()
-                app.screen.add_widget(report)
-            except AttributeError:
-                create_error_monitor()
-        else:
-            create_error_monitor()
+    def events(self, instance, keyboard, keycode, text, modifiers):
+        '''Called when buttons are pressed on the mobile device..'''
+        if keyboard in (1001, 27):
+            if self.manager_open:
+                self.file_manager.back()
+        return True
