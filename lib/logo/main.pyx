@@ -1,13 +1,11 @@
-import os
+# import .boot
 
+import kivy
 from kivy.app import App
 from kivy.core.window import Window
 from kivy.lang import Builder
 from kivy.factory import Factory
-from kivy.uix.modalview import ModalView
-from kivymd.uix.filemanager import MDFileManager
 from kivymd.theming import ThemeManager
-from kivymd.toast import toast
 
 
 Builder.load_string('''
@@ -28,15 +26,11 @@ Builder.load_string('''
             on_release: app.file_manager_open()
 ''')
 
-ICON = "assets/icons/dove-256.png"
 
-
-class Example(App):
+class LogoMessenger(App):
     theme_cls = ThemeManager()
-    theme_cls.primary_palette = 'Teal'
-    title = "File Manage"
-    window_icon = ICON
-    icon = os.path.join(self.resource_path, ICON)
+    theme_cls.primary_palette = 'LightGreen'
+    title = "Logo Messenger"
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -46,34 +40,3 @@ class Example(App):
 
     def build(self):
         return Factory.ExampleFileManager()
-
-    def file_manager_open(self):
-        if not self.manager:
-            self.manager = ModalView(size_hint=(1, 1), auto_dismiss=False)
-            self.file_manager = MDFileManager(
-                exit_manager=self.exit_manager, select_path=self.select_path)
-            self.manager.add_widget(self.file_manager)
-            self.file_manager.show('/')  # output manager to the screen
-        self.manager_open = True
-        self.manager.open()
-
-    def select_path(self, path):
-        '''It will be called when you click on the file name
-        or the catalog selection button.
-        :type path: str;
-        :param path: path to the selected directory or file;
-        '''
-        self.exit_manager()
-        toast(path)
-
-    def exit_manager(self, *args):
-        '''Called when the user reaches the root of the directory tree.'''
-        self.manager.dismiss()
-        self.manager_open = False
-
-    def events(self, instance, keyboard, keycode, text, modifiers):
-        '''Called when buttons are pressed on the mobile device..'''
-        if keyboard in (1001, 27):
-            if self.manager_open:
-                self.file_manager.back()
-        return True

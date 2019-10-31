@@ -61,5 +61,6 @@ setup(
     install_requires=[],
     # namespace_packages=['angelos', 'eidon'],
     scripts=glob('bin/*'),
-    ext_modules=cythonize('lib/**/*.pyx', build_dir="build")
+    ext_modules=cythonize(
+        glob('lib/logo/**/*.pyx', recursive=True), build_dir="build")
 )

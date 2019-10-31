@@ -13,7 +13,9 @@ We currently recommend to develop and to build Logo Messenger using Anaconda.
    > cd logo
 3. Create a new conda environment with the Kivy package, and activate it.
    > conda create --name &lt;env&gt;
+   >
    > conda activate &lt;env&gt;
+   > 
    > conda install kivy -c conda-forge
  4. Initialize the project and install dependencies.
    > make init

@@ -1,6 +1,7 @@
 PYI = --log=DEBUG --onefile
 
 default:
+	python setup.py develop
 	pyinstaller pyinstaller.spec bin/logo \
 	-y --clean --onefile --name logo --windowed
 
