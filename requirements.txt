@@ -2,7 +2,12 @@ sphinx
 sphinx_rtd_theme
 cython
 pyinstaller
-pygame
 # kivymd
 git+https://github.com/HeaTTheatR/KivyMD.git@master
 git+https://github.com/kristoffer-paulsson/angelos.git@master
+
+asyncssh
+plyer
+libnacl
+msgpack
+macos_keychain  # macOS only!

@@ -57,7 +57,9 @@ setup(
     test_suite='',
     python_requires='~=3.7',
     setup_requires=[
-        'cython', 'pyinstaller', 'sphinx', 'sphinx_rtd_theme', 'kivymd'],
+        'cython', 'pyinstaller', 'sphinx', 'sphinx_rtd_theme', 'kivymd',
+        'asyncssh', 'plyer', 'libnacl', 'msgpack', 'macos_keychain',
+        'angelos'],
     install_requires=[],
     # namespace_packages=['angelos', 'eidon'],
     scripts=glob('bin/*'),
