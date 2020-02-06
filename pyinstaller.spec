@@ -1,56 +1,42 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-import os
+from PyInstaller.building.build_main import *
 import sys
-from kivy.tools.packaging.pyinstaller_hooks import (
-    get_deps_all, hookspath, runtime_hooks)
-import kivymd
+import os
 
-block_cipher = None
 path = os.path.abspath(".")
-bin_path = os.path.join(path, 'bin', 'logo')
-lib_path = os.path.join(path, 'lib', 'logo')
-sys.path.insert(0, lib_path)
-kivymd_path = os.path.dirname(kivymd.__file__)
-sys.path.insert(0, kivymd_path)
+kivymd_repo_path = path.split("demos")[0]
+sys.path.insert(0, kivymd_repo_path)
 
-# from kivy_deps.sdl2 import dep_bins as sdl2_dep_bins
-# from kivy_deps.glew import dep_bins as glew_dep_bins
+from kivy_deps import sdl2, glew
 from kivymd import hooks_path as kivymd_hooks_path
 
-kivydeps = get_deps_all()
+a = Analysis(
+    ["main.py"],
+    pathex=[path],
+    binaries=[],
+    datas=[("assets\\", "assets\\")],
+    hiddenimports=[],
+    hookspath=[kivymd_hooks_path],
+    runtime_hooks=[],
+    excludes=[],
+    win_no_prefer_redirects=False,
+    win_private_assemblies=False,
+    cipher=None,
+    noarchive=False,
+)
+pyz = PYZ(a.pure, a.zipped_data, cipher=None)
 
-a = Analysis([bin_path],
-             pathex=[kivymd_path],
-             binaries=kivydeps["binaries"] + [],
-             datas=[("assets/", "assets/")],
-             hiddenimports=kivydeps["hiddenimports"] + ["kivymd.toast", "logo", "logo.main"],
-             hookspath=hookspath() + [kivymd_hooks_path],
-             runtime_hooks=runtime_hooks() + [],
-             excludes=kivydeps["excludes"] + ["_tkinter", "Tkinter", "enchant", "twisted"],
-             win_no_prefer_redirects=False,
-             win_private_assemblies=False,
-             cipher=block_cipher,
-             noarchive=False)
-pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
-exe = EXE(pyz,
-          a.scripts,
-          a.binaries,
-          a.zipfiles,
-          a.datas,
-          [],
-          name="logo",
-          debug=False,
-          bootloader_ignore_signals=False,
-          strip=False,
-          upx=True,
-          upx_exclude=[],
-          runtime_tmpdir=None,
-          console=False )
-app = BUNDLE(exe,
-             name="Logo Messenger.app",
-             icon="assets/icons/dove.icns",
-             bundle_identifier=None,
-             info_plist={
-                'NSHighResolutionCapable': 'True'
-                })
+exe = EXE(
+    pyz,
+    a.scripts,
+    a.binaries,
+    a.zipfiles,
+    a.datas,
+    *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins)],
+    debug=False,
+    strip=False,
+    upx=True,
+    name="kitchen_sink",
+    console=True,
+)

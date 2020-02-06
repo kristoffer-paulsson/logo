@@ -1,0 +1,12 @@
+#:import Documents studies.logo.baseclass.documents.Documents
+
+<Documents>:
+    name: "documents"
+    BoxLayout:
+        orientation: "vertical"
+        LToolbar:
+            title: strings.TEXT_SECTION_DOCUMENTS
+            id: toolbar
+            left_action_items: [["menu", lambda x: root.nav_drawer.toggle_nav_drawer()]]
+        ScrollView:
+            do_scroll_x: False

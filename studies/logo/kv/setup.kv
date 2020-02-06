@@ -1,0 +1,35 @@
+#:import SetupGuide studies.logo.baseclass.setup.SetupGuide
+
+<SetupGuide>:
+    name: "setup"
+    BoxLayout:
+        orientation: "vertical"
+        width: dp(250)
+        padding: dp(15)
+        spacing: dp(15)
+        pos_hint: {"center_x": .5, "center_y": .7}
+        Widget:
+        MDLabel:
+            text: strings.TEXT_SETUP_WELCOME
+            halign: "center"
+            valign: "bottom"
+            theme_text_color: "Primary"
+        MDIconButton:
+            icon: "account"
+            on_release: root.parent.current = "person_setup"
+            pos_hint: {"center_x": .5}
+        Widget:
+    BoxLayout:
+        orientation: "horizontal"
+        size_hint_y: None
+        padding: dp(15)
+        spacing: dp(15)
+        Widget:
+        MDIconButton:
+            icon: "church"
+            on_release: root.parent.current = "church_setup"
+            theme_text_color: "Hint"
+        MDIconButton:
+            icon: "sword"
+            on_release: root.parent.current = "ministry_setup"
+            theme_text_color: "Hint"

@@ -1,0 +1,86 @@
+<LToolbar>:
+    md_bg_color: app.theme_cls.primary_color
+    background_palette: "Primary"
+    background_hue: "500"
+    elevation: 10
+
+
+<LCenterLabel>:
+    halign: "justify"
+    padding: dp(16), dp(16)
+    markup: True
+    font_style: "Body1"
+    theme_text_color: "Primary"
+    size_hint_y: None
+    height: self.texture_size[1]
+
+    line_height: 1.4
+
+
+<LForm>:
+    orientation: "vertical"
+    padding: dp(16)
+    spacing: dp(16)
+    size_hint_y: None
+    height: self.minimum_height
+
+
+<LFormHorizontal>:
+    orientation: "horizontal"
+    padding: dp(0)
+    spacing: dp(16)
+    size_hint_y: None
+    height: self.minimum_height
+
+
+<LTextField>:
+    helper_text_mode: "persistent"
+    required: True
+    multiline: False
+    valign: "top"
+
+
+<LFormTitle>:
+    font_style: "H5"
+
+
+<LChoiceGroup>:
+    size_hint: None, None
+    size: self.minimum_size
+    spacing: dp(30)
+
+
+<LCheckbox>:
+    size_hint: None, None
+    size: dp(48), dp(48)
+    theme_text_color: "Primary"
+
+
+<LScrollContentItem>:
+    cols: 1
+    size_hint_y: None
+    height: self.minimum_height
+
+
+<LScrollLayout>:
+    # content: content
+    ScrollView:
+        id: content
+        do_scroll_x: False
+        bar_width: 10
+        bar_color: app.theme_cls.primary_color
+        effect_cls: "DampedScrollEffect"
+        scroll_type: ["bars"]
+
+
+<LIconRightCheckbox>:
+
+
+<LIconRightSwitch>:
+
+
+<LIconLeftWidget>:
+    theme_text_color: "Primary"
+
+
+<Section>:

@@ -1,0 +1,17 @@
+
+<Malfunction>:
+    name: "malfunction"
+
+    LScrollLayout:
+        LScrollContentItem:
+            LFormTitle:
+                text: strings.TEXT_UNKNOWN_ERROR
+            LCenterLabel:
+                text: strings.TEXT_MALFUNCTION_MESSAGE
+            LForm:
+                LFormHorizontal:
+                    Widget
+                    MDRaisedButton:
+                        text: strings.TEXT_EXIT
+                        on_release: app.stop()
+            Widget

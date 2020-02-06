@@ -1,0 +1,153 @@
+<MessageDialog>:
+    background_color: app.theme_cls.primary_color
+    background: "Custom"
+    pos_hint: {"center_x": .5, "center_y": .5}
+    BoxLayout:
+        orientation: "vertical"
+        MDToolbar:
+            id: toolbar
+            title: root.title
+            md_bg_color: app.theme_cls.primary_color
+            background_palette: "Primary"
+            background_hue: "500"
+            elevation: 10
+            left_action_items:
+                root.left_action_items
+            right_action_items:
+                root.right_action_items
+        ScrollView:
+            do_scroll_x: False
+            id: reader
+            GridLayout:
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                TwoLineAvatarIconListItem:
+                    text: "[b]" + root.subject + "[/b]"
+                    secondary_text: "[size=14sp][b]" + root.target + "[/b] - " + root.posted + "[/size]"
+                    markup: True
+                    ImageLeftWidget:
+                        source: root.source
+                    IconRightMenu:
+                        icon: "dots-horizontal"
+                        on_release: root.dropdown(self)
+                MDLabel:
+                    text: root.body
+                    line_height: 1.4
+                    padding: dp(24), dp(24)
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text_size: self.width, None
+                    valign: "top"
+                Widget
+        ScrollView:
+            do_scroll_x: False
+            id: writer
+            GridLayout:
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                OneLineAvatarListItem:
+                    text: root.target
+                    markup: True
+                    ImageLeftWidget:
+                        source: root.source
+                GridLayout:
+                    cols: 1
+                    size_hint_y: None
+                    height: self.minimum_height
+                    padding: dp(24), dp(24)
+                    spacing: dp(24)
+                    LTextField:
+                        text: root.subject
+                        id: subject
+                        hint_text: "Subject"
+                        on_text: root.subject = self.text
+                    LTextField:
+                        id: body
+                        text: root.body
+                        hint_text: "Message"
+                        multiline: True
+                        on_text: root.body = self.text
+                Widget
+
+
+<PortfolioImporter>:
+    background_color: app.theme_cls.primary_color
+    background: ""
+    # Remove when refactored
+    pos_hint: {"center_x": .5, "center_y": .5}
+    BoxLayout:
+        orientation: "vertical"
+        MDToolbar:
+            id: root.id
+            title: root.title
+            md_bg_color: app.theme_cls.primary_color
+            background_palette: "Primary"
+            background_hue: "500"
+            elevation: 10
+            left_action_items:
+                [["chevron-left", lambda x: root.dismiss()]]
+        ScrollView:
+            do_scroll_x: False
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                padding: dp(25)
+                spacing: dp(25)
+                MDLabel:
+                    text: "Paste the information from the portfolio in the text-field to import the data."
+                    valign: "top"
+                MDTextField:
+                    id: data
+                    valign: "top"
+                    multiline: True
+                    hint_text: "Portfolio data"
+                    helper_text: "You can enter multiline portfolio data here."
+                    helper_text_mode: "persistent"
+                MDRectangleFlatIconButton:
+                    icon: "file-import"
+                    text: "Import"
+                    opposite_colors: True
+                    elevation_normal: 8
+                    on_release: root.parse()
+
+
+<PortfolioExporter>
+    background_color: app.theme_cls.primary_color
+    background: ''
+    # Remove when refactored
+    pos_hint: {"center_x": .5, "center_y": .5}
+    BoxLayout:
+        orientation: 'vertical'
+        MDToolbar:
+            id: toolbar
+            title: root.title
+            md_bg_color: app.theme_cls.primary_color
+            background_palette: 'Primary'
+            background_hue: '500'
+            elevation: 10
+            left_action_items:
+                [['chevron-left', lambda x: root.dismiss()]]
+        ScrollView:
+            do_scroll_x: False
+            BoxLayout:
+                orientation: 'vertical'
+                id: docs
+                size_hint_y: None
+                height: self.minimum_height
+                padding: dp(25)
+                spacing: dp(25)
+                MDLabel:
+                    text: root.data
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text_size: self.width, None
+                    valign: 'top'
+                MDRectangleFlatIconButton:
+                    icon: 'content-copy'
+                    text: 'Copy'
+                    opposite_colors: True
+                    elevation_normal: 8
+                    on_release: root.copy()

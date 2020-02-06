@@ -1,0 +1,78 @@
+
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+#:import IconLeftWidget kivymd.uix.list.IconLeftWidget
+#:import images_path kivymd.images_path
+
+#:import Dashboard studies.logo.baseclass.dashboard.Dashboard
+#:import Messages studies.logo.baseclass.messages.Messages
+#:import Contacts studies.logo.baseclass.contacts.Contacts
+#:import Documents studies.logo.baseclass.documents.Documents
+#:import Networks studies.logo.baseclass.networks.Networks
+#:import Profile studies.logo.baseclass.profile.Profile
+#:import Preferences studies.logo.baseclass.preferences.Preferences
+
+
+<NavigationItem>
+    divider: None
+    IconLeftWidget:
+        icon: root.icon
+
+<ContentNavigationDrawer>
+    orientation: "vertical"
+    GridLayout
+        cols: 1
+        size_hint_y: None
+        height: self.minimum_height
+        padding: dp(20)
+        spacing: dp(20)
+        canvas:
+            Color:
+                rgba: app.theme_cls.primary_color
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Image:
+            source: app.profile_picture
+            size_hint_y: None
+            height: dp(48)
+
+        MDLabel:
+            text: app.user_name
+            markup: True
+            halign: "center"
+            size_hint_y: None
+            height: dp(24)
+
+    ScrollView:
+        pos_hint: {"top": 1}
+        GridLayout:
+            id: box_item
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+
+<Main>
+    name: "home"
+    NavigationLayout:
+        ScreenManager:
+            id: scr_mngr
+            transition: NoTransition()
+            Dashboard:
+                nav_drawer: nav_drawer
+            Messages:
+                nav_drawer: nav_drawer
+            Contacts:
+                nav_drawer: nav_drawer
+            Documents:
+                nav_drawer: nav_drawer
+            Networks:
+                nav_drawer: nav_drawer
+            Profile:
+                nav_drawer: nav_drawer
+            Preferences:
+                nav_drawer: nav_drawer
+        MDNavigationDrawer:
+            id: nav_drawer
+            ContentNavigationDrawer:
+                id: content_drawer

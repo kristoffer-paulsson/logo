@@ -1,0 +1,109 @@
+#:import strings studies.logo.strings
+#:import PersonSetupGuide studies.logo.baseclass.setup.PersonSetupGuide
+#:import LCenterLabel studies.logo.baseclass.common.LCenterLabel
+#:import LScrollContentItem studies.logo.baseclass.common.LScrollContentItem
+#:import LScrollLayout studies.logo.baseclass.common.LScrollLayout
+
+
+<PersonSetupGuide>:
+    name: "person_setup"
+    BoxLayout:
+        orientation: "vertical"
+
+        LToolbar:
+            id: toolbar
+            title: strings.TEXT_X_TITLE_SETUP % strings.TEXT_PERSON
+
+        ScrollView:
+            id: scroll
+            size_hint_y: None
+            height: Window.height - app.theme_cls.standard_increment
+
+            GridLayout:
+                id: box
+                size_hint_y: None
+                height: self.minimum_height
+                cols: 1
+                padding: dp(10)
+                spacing: dp(10)
+
+                LFormTitle:
+                    text: strings.TEXT_WELCOME
+                LCenterLabel:
+                    text: strings.TEXT_SETUP_INTRO_PERSON
+
+                MDSeparator:
+
+                LFormTitle:
+                    text: strings.TEXT_X_ACCOUNT % strings.TEXT_PERSON
+                LForm:
+                    LTextField:
+                        id: given_name
+                        hint_text: strings.TEXT_GIVEN_NAME
+                        helper_text: strings.TEXT_SETUP_PERSON_GIVEN_NAME_HELPER
+                        on_text: root.set_field("given_name", self.text)
+                    LTextField:
+                        id: names
+                        hint_text: strings.TEXT_NAMES
+                        helper_text: strings.TEXT_SETUP_PERSON_NAMES_HELPER
+                        on_text: root.set_several("names", self.text)
+                    LTextField:
+                        id: family_name
+                        hint_text: strings.TEXT_FAMILY_NAME
+                        helper_text: strings.TEXT_SETUP_PERSON_FAMILY_NAME_HELPER
+                        on_text: root.set_field("family_name", self.text)
+                LCenterLabel:
+                    text: strings.TEXT_SETUP_PERSON_GENDER
+
+                LChoiceGroup:
+                    LCheckbox:
+                        id: woman
+                        group: "gender"
+                        on_active: root.set_field("sex", "woman")
+                    Label:
+                        text: strings.TEXT_WOMAN
+                        color: app.theme_cls.text_color
+                    LCheckbox:
+                        id: man
+                        group: "gender"
+                        on_active: root.set_field("sex", "man")
+                    Label:
+                        text: strings.TEXT_MAN
+                        color: app.theme_cls.text_color
+                    LCheckbox:
+                        id: third
+                        group: "gender"
+                        on_active: root.set_field("sex", "undefined")
+                    Label:
+                        text: strings.TEXT_UNDEFINED
+                        color: app.theme_cls.text_color
+                LForm:
+                    LFormHorizontal:
+                        LTextField:
+                            id: born
+                            hint_text: strings.TEXT_SETUP_PERSON_BIRTH
+                            helper_text: strings.TEXT_SETUP_PERSON_BIRTH_HELPER
+                            on_text: root.set_date("born", self.text)
+                        MDRaisedButton:
+                            id: date_btn
+                            text: strings.TEXT_DATE
+                            on_release: root.datepicker("born", root.ids.born)
+                            valign: "top"
+
+                MDSeparator:
+
+                LFormTitle:
+                    text: strings.TEXT_CONFIRMATION
+                LCenterLabel:
+                    text: strings.TEXT_ACCURATE_COMPLETE
+                LCenterLabel:
+                    text: root.compilation
+                LCenterLabel:
+                    text: strings.TEXT_SETUP_CONFIRM_LEGALESE
+                LForm:
+                    LFormHorizontal:
+                        Widget:  # Pushes the buttons to the right
+                        MDRaisedButton:
+                            id: confirm_btn
+                            text: strings.TEXT_CONFIRM
+                            on_release: root.confirm()

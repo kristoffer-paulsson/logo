@@ -1,0 +1,66 @@
+#:import Preferences studies.logo.baseclass.preferences.Preferences
+#:import LIconRightSwitch studies.logo.baseclass.common.LIconRightSwitch
+
+
+<PortfolioBottomSheet>:
+    pos_hint: {"center_x": .5, "center_y": .5}
+
+
+<Preferences>:
+    name: "preferences"
+    BoxLayout:
+        orientation: "vertical"
+        LToolbar:
+            title: strings.TEXT_SECTION_PREFERENCES
+            id: toolbar
+            left_action_items: [["menu", lambda x: root.nav_drawer.toggle_nav_drawer()]]
+        ScrollView:
+            do_scroll_x: False
+            MDList:
+                id: prefs
+                OneLineIconListItem:
+                    text: "Portfolio"
+                    on_release: root.open_portfolio_sheet()
+                    IconLeftWidget:
+                        icon: "shield-home-outline"
+                OneLineAvatarIconListItem:
+                    text: strings.TEXT_NIGHT_MODE
+                    IconLeftWidget:
+                        icon: "theme-light-dark"
+                    LIconRightSwitch:
+                        active: True if app.theme_cls.theme_style == "Dark" else False
+                        on_active:
+                            if self.active: app.theme_cls.theme_style = "Dark"
+                            else: app.theme_cls.theme_style = "Light"
+                TwoLineIconListItem:
+                    text: "Contact synchro"
+                    secondary_text: "Synchronize portfolio entities with contacts."
+                    secondary_font_style: "Caption"
+                    secondary_theme_text_color: "Custom"
+                    secondary_text_color: app.theme_cls.primary_color
+                    on_release: root.contact_sync()
+                    IconLeftWidget:
+                        icon: "account-convert"
+                TwoLineIconListItem:
+                    text: "Index Networks"
+                    secondary_text: "Index available networks that are connectable."
+                    secondary_font_style: "Caption"
+                    secondary_theme_text_color: "Custom"
+                    secondary_text_color: app.theme_cls.primary_color
+                    on_release: root.network_index()
+                    IconLeftWidget:
+                        icon: "plus-network-outline"
+                TwoLineListItem:
+                    text: "Dummy generator"
+                    secondary_text: "Click to generate 20 new entities."
+                    secondary_font_style: "Caption"
+                    secondary_theme_text_color: "Custom"
+                    secondary_text_color: app.theme_cls.primary_color
+                    on_release: root.generate_dummys()
+                TwoLineListItem:
+                    text: "Dummy mailer"
+                    secondary_text: "Click to send 10 mails to myself."
+                    secondary_font_style: "Caption"
+                    secondary_theme_text_color: "Custom"
+                    secondary_text_color: app.theme_cls.primary_color
+                    on_release: root.generate_mail()

@@ -1,7 +1,7 @@
 [app]
 
 # (str) Title of your application
-title = Logo Messenger
+title = KivyMD Kitchen Sink
 
 # (str) Package name
 package.name = kitchen_sink
@@ -13,7 +13,7 @@ package.domain = com.heattheatr
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,jpeg,ttf,md
+source.include_exts = py,png,jpg,jpeg,ttf,md,kv,json
 
 # (list) List of inclusions using pattern matching
 source.include_patterns = assets/*
@@ -87,4 +87,4 @@ warn_on_root = 0
 build_dir = ./.buildozer
 
 # (str) Path to build output (i.e. .apk, .ipa) storage
-bin_dir = ./dist
+bin_dir = ./bin

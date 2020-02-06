@@ -1,0 +1,17 @@
+#:import Dashboard studies.logo.baseclass.dashboard.Dashboard
+
+<Dashboard>:
+    name: "dashboard"
+    # Try to move Toolbar to <Section> and add this BoxLayout as a spacer.
+    # BoxLayout:
+    #    orientation: "vertical"
+    #    size_hint_y: None
+    #    height: root.parent.toolbar.height
+    BoxLayout:
+        orientation: "vertical"
+        LToolbar:
+            title: strings.TEXT_APP_NAME
+            id: toolbar
+            left_action_items: [["menu", lambda x: root.nav_drawer.toggle_nav_drawer()]]
+        ScrollView:
+            do_scroll_x: False

@@ -1,0 +1,41 @@
+
+
+<DocView>:
+    size_hint_y: None
+    height: self.texture_size[1]
+    text_size: self.width, None
+    valign: "top"
+
+
+<PortfolioView>:
+    background_color: app.theme_cls.primary_color
+    background: ""
+    BoxLayout:
+        orientation: "vertical"
+        MDToolbar:
+            id: toolbar
+            title: root.title
+            md_bg_color: app.theme_cls.primary_color
+            background_palette: "Primary"
+            background_hue: "500"
+            elevation: 10
+            left_action_items:
+                [["chevron-left", lambda x: root.dismiss()]]
+        ScrollView:
+            do_scroll_x: False
+            BoxLayout:
+                orientation: "vertical"
+                id: docs
+                size_hint_y: None
+                height: self.minimum_height
+                padding: dp(25)
+                spacing: dp(25)
+                MDLabel:
+                    text: "Look through the documents and see if you wish to save them."
+                    valign: "top"
+                MDRectangleFlatIconButton:
+                    icon: "content-save-all"
+                    text: "Save"
+                    opposite_colors: True
+                    elevation_normal: 8
+                    on_release: root.save()

@@ -112,3 +112,12 @@ venv.bak/
 /logo/
 /assets/icons/*
 !/assets/icons/.gitkeep
+
+/dev_env/primary/*
+/dev_env/secondary/*
+/dev_env/tertiary/*
+!/dev_env/primary/.gitkeep
+!/dev_env/secondary/.gitkeep
+!/dev_env/tertiary/.gitkeep
+
+kitchensink/
