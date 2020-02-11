@@ -1,4 +1,4 @@
-from dummy.support import Generate
+from angelossim.support import Generate
 from kivy.app import App
 from kivymd.toast import toast
 from libangelos.misc import Loop
