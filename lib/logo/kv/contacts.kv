@@ -1,0 +1,282 @@
+#:import environ os.environ
+
+#:import MDDropdownMenu kivymd.uix.menu.MDDropdownMenu
+#:import toast kivymd.toast.kivytoast.kivytoast.toast
+
+#:import Contacts logo.baseclass.contacts.Contacts
+#:import ContactListItem logo.baseclass.contacts.ContactListItem
+#:import ContactSearch logo.baseclass.contacts.ContactSearch
+#:import ContactMenu logo.baseclass.contacts.ContactMenu
+#:import ContactRecycleView logo.baseclass.contacts.ContactRecycleView
+
+#:import FriendAction logo.action.contact.FriendAction
+#:import UnfriendAction logo.action.contact.UnfriendAction
+#:import FavoriteAction logo.action.contact.FavoriteAction
+#:import UnfavoriteAction logo.action.contact.UnfavoriteAction
+#:import BlockAction logo.action.contact.BlockAction
+#:import UnblockAction logo.action.contact.UnblockAction
+#:import ContactDeleteAction logo.action.contact.ContactDeleteAction
+
+#:import TrustAction logo.action.contact.TrustAction
+#:import VerifyAction logo.action.contact.VerifyAction
+#:import ExportAction logo.action.contact.ExportAction
+
+
+<AvatarContactSheetItem>:
+    source: f"{environ['LOGO_MESSENGER_ASSETS']}/images/mask-128x128.png"
+    ImageLeftWidget:
+        source: root.source
+
+
+<IconContactSheetItem>:
+    icon: "emoticon-outline"
+    divider: None
+    IconLeftWidget:
+        icon: root.icon
+
+
+<ContactBottomSheetContent>:
+    id: box
+    orientation: "vertical"
+    size_hint_y: None
+    height: self.minimum_height
+
+    AvatarContactSheetItem:
+        id: avatar
+        text: root.text
+    IconContactSheetItem:
+        id: message
+        text: strings.TEXT_NEW_MESSAGE
+        icon: "email-newsletter"
+        on_release:
+            root.compose()
+            root.parent.parent.parent.dismiss()
+    IconContactSheetItem:
+        id: trust
+        text: "Export portfolio"
+        icon: "export-outline"
+        on_release:
+            ExportAction(entity=root.entity).start()
+            root.parent.parent.parent.dismiss()
+    IconContactSheetItem:
+        id: trust
+        text: "Trust portfolio"
+        icon: "shield-check-outline"
+        on_release:
+            TrustAction(entity=root.entity).start()
+            root.parent.parent.parent.dismiss()
+    IconContactSheetItem:
+        id: verify
+        text: "Verify portfolio"
+        icon: "shield-key-outline"
+        on_release:
+            VerifyAction(entity=root.entity).start()
+            root.parent.parent.parent.dismiss()
+    IconContactSheetItem:
+        id: profile
+        text: strings.TEXT_PROFILE
+        icon: "face-profile"
+        on_release:
+            toast("Implement me!")
+            root.parent.parent.parent.dismiss()
+    IconContactSheetItem:
+        id: portfolio
+        text: strings.TEXT_PORTFOLIO
+        icon: "shield-home-outline"
+        on_release:
+            toast("Implement me!")
+            root.parent.parent.parent.dismiss()
+    IconContactSheetItem:
+        id: friend
+        text: strings.TEXT_FRIEND
+        icon: "heart"
+        on_release:
+            FriendAction(entity=root.entity, name=root.text).start()
+            root.parent.parent.parent.dismiss()
+    IconContactSheetItem:
+        id: unfriend
+        text: strings.TEXT_UNFRIEND
+        icon: "heart-off"
+        on_release:
+            UnfriendAction(entity=root.entity, name=root.text).start()
+            root.parent.parent.parent.dismiss()
+    IconContactSheetItem:
+        id: favorite
+        text: strings.TEXT_FAVORITE
+        icon: "star"
+        on_release:
+            FavoriteAction(entity=root.entity, name=root.text).start()
+            root.parent.parent.parent.dismiss()
+    IconContactSheetItem:
+        id: unfavorite
+        text: strings.TEXT_UNFAVORITE
+        icon: "star-off"
+        on_release:
+            UnfavoriteAction(entity=root.entity, name=root.text).start()
+            root.parent.parent.parent.dismiss()
+    IconContactSheetItem:
+        id: block
+        text: strings.TEXT_BLOCK
+        icon: "alert-outline"
+        on_release:
+            BlockAction(entity=root.entity, name=root.text).start()
+            root.parent.parent.parent.dismiss()
+    IconContactSheetItem:
+        id: unblock
+        text: strings.TEXT_UNBLOCK
+        icon: "door"
+        on_release:
+            UnblockAction(entity=root.entity, name=root.text).start()
+            root.parent.parent.parent.dismiss()
+    IconContactSheetItem:
+        id: delete
+        text: strings.TEXT_DELETE
+        icon: "trash-can-outline"
+        on_release:
+            ContactDeleteAction(entity=root.entity, name=root.text).start()
+            root.parent.parent.parent.dismiss()
+
+
+<ContactListItem>:
+    text: ""
+    source: ""
+    on_press: root.show_menu()
+    # on_focus: self.text = root.text
+    divider: "Inset"
+    ImageLeftWidget:
+        source: root.source
+    LIconRightCheckbox:
+        id: checkbox
+        active: root.selected
+        on_active:
+            root.selected = self.active
+
+
+<ContactSearch>:
+    orientation: "vertical"
+    spacing: dp(10)
+
+    BoxLayout:
+        size_hint_y: None
+        padding: dp(32), dp(0)
+        height: self.minimum_height
+
+        MDIconButton:
+            icon: "magnify"
+
+        MDTextField:
+            id: search_field
+            hint_text: strings.TEXT_SEARCH_IN % self.parent.parent.parent.name
+
+    ContactRecycleView:
+        id: content
+        viewclass: "ContactListItem"
+        key_size: "height"
+
+        RecycleBoxLayout:
+            default_size: None, dp(48)
+            default_size_hint: 1, None
+            size_hint_y: None
+            height: self.minimum_height
+            orientation: "vertical"
+
+
+<ContactMenu>:
+#    MDMenuItem:
+#        id: select
+#        icon: strings.TEXT_SELECT_ALL
+#        text: "checkbox-multiple-marked-outline"
+#        callback: lambda x: print("Callback lambda")
+#        on_release: lambda x: print("On release lambda")
+#    MDMenuItem:
+#        id: deselect
+#        icon: "checkbox-multiple-blank-outline"
+#        text: strings.TEXT_DESELECT_ALL
+#        callback: lambda x: print("Callback lambda")
+#        on_release: lambda x: print("On release lambda")
+#    MDMenuItem:
+#        id: friend
+#        icon: "heart"
+#        text: strings.TEXT_FRIEND
+#        callback: lambda x: print("Callback lambda")
+#        on_release: lambda x: print("On release lambda")
+#    MDMenuItem:
+#        id: unfriend
+#        icon: "heart-off"
+#        text: strings.TEXT_UNFRIEND
+#        callback: lambda x: print("Callback lambda")
+#        on_release: lambda x: print("On release lambda")
+#    MDMenuItem:
+#        id: favorite
+#        icon: "star"
+#        text: strings.TEXT_FAVORITE
+#        callback: lambda x: print("Callback lambda")
+#        on_release: lambda x: print("On release lambda")
+#    MDMenuItem:
+#        id: unfavorite
+#        icon: "star-off"
+#        text: strings.TEXT_UNFAVORITE
+#        callback: lambda x: print("Callback lambda")
+#        on_release: lambda x: print("On release lambda")
+#    MDMenuItem:
+#        id: block
+#        icon: "alert-outline"
+#        text: strings.TEXT_BLOCK
+#        callback: lambda x: print("Callback lambda")
+#        on_release: lambda x: print("On release lambda")
+#    MDMenuItem:
+#        id: unblock
+#        icon: "door"
+#        text: strings.TEXT_UNBLOCK
+#        callback: lambda x: print("Callback lambda")
+#        on_release: lambda x: print("On release lambda")
+
+
+<Contacts>:
+    name: "contacts"
+    on_enter: root.list_favorites(panel.first_widget)
+    BoxLayout:
+        orientation: "vertical"
+        LToolbar:
+            title: strings.TEXT_SECTION_CONTACTS
+            id: toolbar
+            left_action_items: [["menu", lambda x: root.nav_drawer.set_state("open")]]
+            right_action_items: [["dots-vertical", lambda x: root.open_menu(x)]]
+        MDBottomNavigation:
+            id: panel
+            tab_display_mode: "icons"
+            MDBottomNavigationItem:
+                name: "favorites"
+                text: strings.TEXT_FAVORITES
+                icon: "star"
+                on_pre_enter: root.list_favorites(self)
+                ContactSearch:
+                    id: favorites
+            MDBottomNavigationItem:
+                name: "friends"
+                text: strings.TEXT_FRIENDS
+                icon: "heart"
+                on_pre_enter: root.list_friends(self)
+                ContactSearch:
+                    id: friends
+            MDBottomNavigationItem:
+                name: "church"
+                text: strings.TEXT_CHURCH
+                icon: "church"
+                on_pre_enter: root.list_church(self)
+                ContactSearch:
+                    id: church
+            MDBottomNavigationItem:
+                name: "all"
+                text: strings.TEXT_ALL
+                icon: "account-multiple"
+                on_pre_enter: root.list_all(self)
+                ContactSearch:
+                    id: all
+            MDBottomNavigationItem:
+                name: "blocked"
+                text: strings.TEXT_BLOCKED
+                icon: "alert-outline"
+                on_pre_enter: root.list_blocked(self)
+                ContactSearch:
+                    id: blocked
