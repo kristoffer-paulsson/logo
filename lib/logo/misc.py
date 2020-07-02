@@ -12,7 +12,7 @@ from kivymd.toast import toast
 from kivymd.uix.dialog import MDDialog
 from libangelos.misc import Loop
 
-from lib.logo import strings
+from logo import strings
 
 
 class ActionABC(ABC):

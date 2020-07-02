@@ -4,7 +4,7 @@ from kivymd.toast import toast
 from libangelos.document.statements import Statement
 from libangelos.error import PortfolioAlreadyExists
 
-from lib.logo.misc import ActionABC
+from logo.misc import ActionABC
 
 
 class PortfolioUpdateAction(ActionABC):

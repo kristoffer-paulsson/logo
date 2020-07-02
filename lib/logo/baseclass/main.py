@@ -7,7 +7,7 @@ from kivy.uix.screenmanager import Screen
 from kivymd.theming import ThemableBehavior
 from kivymd.uix.list import OneLineIconListItem
 
-from lib.logo import strings
+from logo import strings
 
 
 class ContentNavigationDrawer(BoxLayout):

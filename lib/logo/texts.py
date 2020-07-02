@@ -1,3 +1,8 @@
+#
+# Copyright (c) 2019-2020 by:
+# Kristoffer Paulsson <kristoffer.paulsson@talenten.se>
+# This file is distributed under the terms of the MIT license.
+#
 """All language strings of LogoMessenger for iOS, Android and macOS version."""
 
 TEXTS = {

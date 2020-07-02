@@ -17,7 +17,7 @@ from libangelos.ssh.client import ClientsClient
 from libangelos.ssh.ssh import SessionManager
 from libangelos.utils import Event
 
-from vars import ENV_DEFAULT, ENV_IMMUTABLE, CONFIG_DEFAULT, CONFIG_IMMUTABLE
+from logo.vars import ENV_DEFAULT, ENV_IMMUTABLE, CONFIG_DEFAULT, CONFIG_IMMUTABLE
 
 if getattr(sys, "frozen", False):  # bundle mode with PyInstaller
     os.environ["LOGO_MESSENGER_ROOT"] = sys._MEIPASS
@@ -85,7 +85,7 @@ class LogoMessenger(ContainerAware, MDApp):
         return KeyLoader
 
     def build(self):
-        from lib.logo.logo import Logo
+        from logo.logo import Logo
         widget = Logo()
         widget.opacity = 0
         Animation(opacity=2, d=0.5).start(widget)

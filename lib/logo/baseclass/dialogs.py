@@ -15,7 +15,7 @@ from libangelos.operation.export import ExportImportOperation
 from libangelos.policy.portfolio import PGroup
 from libangelos.policy.print import PrintPolicy
 
-from lib.logo.baseclass.portfolios import PortfolioView
+from logo.baseclass.portfolios import PortfolioView
 
 
 class LogoBaseDialog(BaseDialog):

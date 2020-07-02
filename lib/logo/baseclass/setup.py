@@ -19,7 +19,7 @@ from libangelos.misc import Loop
 from libangelos.operation.setup import SetupChurchOperation, SetupMinistryOperation, SetupPersonOperation
 from libangelos.policy.types import ChurchData, MinistryData, PersonData
 
-from lib.logo import strings
+from logo import strings
 
 COUNTRIES = {'Afghanistan': 'AF', 'Åland Islands': 'AX', 'Albania': 'AL', 'Algeria': 'DZ', 'American Samoa': 'AS',
              'Andorra': 'AD', 'Angola': 'AO', 'Anguilla': 'AI', 'Antarctica': 'AQ', 'Antigua And Barbuda': 'AG',
