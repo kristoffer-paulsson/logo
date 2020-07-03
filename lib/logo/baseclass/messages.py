@@ -88,7 +88,7 @@ class MessageListItem(LogoRecycleViewListItemMixin, TwoLineAvatarListItem):
         self.data.setdefault("text", "{:%c}".format(info[3]))  # Posted
         self.data.setdefault("secondary_text", info[2] if info[2] != "n/a" else str(info[1]))  # Sender or Issuer
 
-        source = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images/dove-128x128.png")
+        source = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images/dove.png")
         self.data.setdefault("source", source)
 
     def _letter_inbox(self):
@@ -107,7 +107,7 @@ class MessageListItem(LogoRecycleViewListItemMixin, TwoLineAvatarListItem):
         self.data.setdefault("text", "{:%c}".format(info[3]))  # Posted
         self.data.setdefault("secondary_text", info[2] if info[2] != "n/a" else str(info[1]))  # Sender or Owner
 
-        source = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images/dove-128x128.png")
+        source = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images/dove.png")
         self.data.setdefault("source", source)
 
     def _letter_outbox(self):
@@ -122,7 +122,7 @@ class MessageListItem(LogoRecycleViewListItemMixin, TwoLineAvatarListItem):
         self.data.setdefault("text", info[2] if info[2] else "")  # Subject
         self.data.setdefault("secondary_text", info[3] if info[3] else "")  # Receiver
 
-        source = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images/dove-128x128.png")
+        source = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images/dove.png")
         self.data.setdefault("source", source)
 
     def _letter_drafts(self):
@@ -141,7 +141,7 @@ class MessageListItem(LogoRecycleViewListItemMixin, TwoLineAvatarListItem):
         self.data.setdefault("text", info[2] if info[2] != "n/a" else str(info[1]))  # Subject or Issuer
         self.data.setdefault("secondary_text", info[3] + " - " + "{:%c}".format(info[4]))  # Sender and Posted
 
-        source = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images/dove-128x128.png")
+        source = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images/dove.png")
         self.data.setdefault("source", source)
 
     def _letter_read(self):
@@ -160,7 +160,7 @@ class MessageListItem(LogoRecycleViewListItemMixin, TwoLineAvatarListItem):
         self.data.setdefault("text", info[2] if info[2] != "n/a" else str(info[1]))  # Subject or Issuer
         self.data.setdefault("secondary_text", info[3] + " - " + "{:%c}".format(info[4]))  # Sender and Posted
 
-        source = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images/dove-128x128.png")
+        source = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images/dove.png")
         self.data.setdefault("source", source)
 
     def _letter_trash(self):

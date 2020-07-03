@@ -35,7 +35,7 @@ class NetworkListItem(LogoRecycleViewListItemMixin, OneLineAvatarIconListItem):
 
         self.data.setdefault("text", PrintPolicy.title(portfolio))  # Posted
 
-        source = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images/dove-128x128.png")
+        source = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images/dove.png")
         self.data.setdefault("source", source)
 
     def selection(self):

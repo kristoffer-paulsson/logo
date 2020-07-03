@@ -52,7 +52,7 @@ class ContactBottomSheetContent(BoxLayout):
 
     def finish_init(self, dt):
         """Adapt the actions of the bottom sheet based on the entities contact status."""
-        self.ids.avatar.source = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images/mask-128x128.png")
+        self.ids.avatar.source = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images/mask.png")
         favorite, friend, blocked = Loop.main().run(self._app.ioc.facade.api.contact.status(self.entity), wait=True)
 
         if blocked:
@@ -130,7 +130,7 @@ class ContactRecycleDataAdapter(RecycleDataAdapter):
                 self.app.ioc.facade.storage.vault.load_portfolio(
                     data_item.get("entity"), PGroup.VERIFIER), wait=True)
             data_item.setdefault("text", PrintPolicy.title(portfolio))
-            source = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images/mask-128x128.png")
+            source = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images/mask.png")
             data_item.setdefault("source", source)
 
         view.data = data_item

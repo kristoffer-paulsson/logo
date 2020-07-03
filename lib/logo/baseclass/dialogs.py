@@ -73,7 +73,7 @@ class MessageDialog(LogoBaseDialog):
             self._app.ioc.facade.storage.vault.load_portfolio(
                 tid, PGroup.VERIFIER), wait=True))
 
-        self.source = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images/dove-128x128.png")
+        self.source = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images/dove.png")
         self.posted = "{:%c}".format(self.__mail.posted) if self.__mail.posted else ""
         self.reply = self.__mail.reply
         self.subject = self.__mail.subject if self.__mail.subject else ""

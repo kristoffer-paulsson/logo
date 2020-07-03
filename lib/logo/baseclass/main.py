@@ -26,7 +26,7 @@ class Main(ThemableBehavior, Screen):
         app = App.get_running_app()
         app.user_name = "[b]{e.given_name} {e.family_name}[/b]".format(
             e=app.ioc.facade.data.portfolio.entity)
-        app.profile_picture = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images/mask-128x128.png")
+        app.profile_picture = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images/mask.png")
 
         def goto(item):
             self.ids.scr_mngr.current = item.goto

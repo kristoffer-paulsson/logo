@@ -157,8 +157,16 @@ setup(
     zip_safe=True,
     python_requires="~=3.7",
     setup_requires=["cython", "pyinstaller"],
-    install_requires=["kivy", "kivymd", "libangelos"],
-        # git+https://github.com/kristoffer-paulsson/angelos.git
+    install_requires=[
+        # First install libangelos manually:
+        # pip install git+https://github.com/kristoffer-paulsson/angelos.git
+        # Build tools requirements
+        "cython", "pyinstaller",
+        # Software import requirements
+        "kivy", "kivymd", "libangelos",
+        # Platform specific requirements
+        # [Windows|Linux|Darwin]
+    ],
     packages=["logo"],
     package_dir={"": "lib"},
     scripts=glob("bin/*"),

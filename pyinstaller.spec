@@ -1,3 +1,5 @@
+#! python
+
 import os
 import sys
 from kivy.tools.packaging.pyinstaller_hooks import (
@@ -12,8 +14,8 @@ sys.path.insert(0, lib_path)
 kivymd_path = os.path.dirname(kivymd.__file__)
 sys.path.insert(0, kivymd_path)
 
-# from kivy_deps.sdl2 import dep_bins as sdl2_dep_bins
-# from kivy_deps.glew import dep_bins as glew_dep_bins
+from kivy_deps.sdl2 import dep_bins as sdl2_dep_bins
+from kivy_deps.glew import dep_bins as glew_dep_bins
 from kivymd import hooks_path as kivymd_hooks_path
 
 kivydeps = get_deps_all()
