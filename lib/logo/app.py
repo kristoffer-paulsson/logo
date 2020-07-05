@@ -19,14 +19,21 @@ from libangelos.utils import Event
 
 from logo.vars import ENV_DEFAULT, ENV_IMMUTABLE, CONFIG_DEFAULT, CONFIG_IMMUTABLE
 
-if getattr(sys, "frozen", False):  # bundle mode with PyInstaller
-    os.environ["LOGO_MESSENGER_ROOT"] = sys._MEIPASS
+if getattr(sys, "frozen", True):
+    # sys.path.append(os.path.abspath(__file__).split("lib")[0])
+    os.environ["LOGO_MESSENGER_ROOT"] = os.path.abspath(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+# if getattr(sys, "frozen", False):  # bundle mode with PyInstaller
+#     os.environ["LOGO_MESSENGER_ROOT"] = sys._MEIPASS
 else:
     sys.path.append(os.path.abspath(__file__).split("demos")[0])
     os.environ["LOGO_MESSENGER_ROOT"] = os.path.abspath(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+
 os.environ["LOGO_MESSENGER_ASSETS"] = os.path.join(
     os.environ["LOGO_MESSENGER_ROOT"], f"assets{os.sep}"
 )
+
+print(os.environ["LOGO_MESSENGER_ROOT"])
+print(os.environ["LOGO_MESSENGER_ASSETS"])
 
 current_locale, _ = locale.getdefaultlocale()
 gettext.translation(

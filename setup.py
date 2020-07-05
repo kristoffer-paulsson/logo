@@ -15,10 +15,6 @@ from os import path
 
 from setuptools import setup, Extension, Command
 
-# FIXME: Translation process
-#   Implement a setup command that handles the translation process
-#   Document the translation process
-
 base_dir = path.abspath(path.dirname(__file__))
 
 
@@ -130,12 +126,21 @@ with open(os.path.join(base_dir, "README.md")) as desc:
 with open(os.path.join(base_dir, "version.py")) as version:
     exec(version.read())
 
+# py2app options and datafiles
+DATA_FILES = [os.path.abspath(os.path.join(os.path.dirname("."),  "assets"))]
+OPTIONS = {
+    # "iconfile": "/path/to/icon/example.icns"
+    "plist": {
+        "NSHumanReadableCopyright": "Copyright 2019-2020 (C) by Kristoffer Paulsson"
+    }
+}
+
 setup(
     cmdclass={
         "build": BuildSetup,
         "translate": Translator
     },
-    name="logo",
+    name="LogoMessenger",
     version=__version__,
     license="MIT",
     description="A safe messaging system",
@@ -154,21 +159,26 @@ setup(
         "Topic :: Religion",
         "Topic :: Security",
     ],
-    zip_safe=True,
+    zip_safe=False,
     python_requires="~=3.7",
-    setup_requires=["cython", "pyinstaller"],
     install_requires=[
         # First install libangelos manually:
         # pip install git+https://github.com/kristoffer-paulsson/angelos.git
         # Build tools requirements
-        "cython", "pyinstaller",
+        "cython",
         # Software import requirements
-        "kivy", "kivymd", "libangelos",
+        "kivy", "kivymd",
         # Platform specific requirements
         # [Windows|Linux|Darwin]
+        "py2app; platform_system == 'Darwin'",
+        "py2exe; platform_system == 'Windows'",
     ],
     packages=["logo"],
     package_dir={"": "lib"},
     scripts=glob("bin/*"),
     # ext_modules=cythonize(LibraryScanner("lib", globlist, pkgdata, coredata).scan())
+    # Py2app and Py2exe specifics
+    app=["./bin/prod"],
+    data_files=DATA_FILES,
+    options={"py2app": OPTIONS},
 )
