@@ -3,6 +3,7 @@ import gettext
 import json
 import locale
 import os
+import pathlib
 import sys
 
 from kivy.animation import Animation
@@ -19,32 +20,64 @@ from libangelos.utils import Event
 
 from logo.vars import ENV_DEFAULT, ENV_IMMUTABLE, CONFIG_DEFAULT, CONFIG_IMMUTABLE
 
-# FIXME:
-#   Write a class that boots the environment based on platform.
-if getattr(sys, "frozen", True):
-    # sys.path.append(os.path.abspath(__file__).split("lib")[0])
-    os.environ["LOGO_MESSENGER_ROOT"] = os.path.abspath(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))
-# if getattr(sys, "frozen", False):  # bundle mode with PyInstaller
-#     os.environ["LOGO_MESSENGER_ROOT"] = sys._MEIPASS
-else:
-    sys.path.append(os.path.abspath(__file__).split("demos")[0])
-    os.environ["LOGO_MESSENGER_ROOT"] = os.path.abspath(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
-os.environ["LOGO_MESSENGER_ASSETS"] = os.path.join(
-    os.environ["LOGO_MESSENGER_ROOT"], "assets"
-)
-os.environ["LOGO_MESSENGER_KV"] = os.path.join(
-    os.environ["LOGO_MESSENGER_ROOT"], "kv"
-)
+class Environment:
+    """Setup paths and variables for the runtime environment."""
 
-current_locale, _ = locale.getdefaultlocale()
-gettext.translation(
-    "messages",
-    localedir=os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "locales/"),
-    languages=["en"]
-).install()
+    DEV = "LOGO_MESSENGER_DEV"
+    ROOT = "LOGO_MESSENGER_ROOT"
+    ASSETS = "LOGO_MESSENGER_ASSETS"
+    LOCALES = "LOGO_MESSENGER_LOCALES"
+    TMPL = "LOGO_MESSENGER_KV"
 
-# Make sure the following line says: "from logo import strings"
+
+    def __init__(self):
+        self.__dev = None
+        self.__root = None
+        self.__assets = None
+        self.__locales = None
+        self.__tmpl = None
+
+        here = pathlib.Path(__file__)
+
+        if hasattr(sys, "frozen"):
+            self.__dev = "prod"
+            if sys.frozen == "macosx_app":
+                self.__root = here.parents[3]
+                self.__assets = self.__root.joinpath("assets")
+                self.__locales = self.__assets.joinpath("locales")
+                self.__tmpl = self.__root.joinpath("kv")
+        else:
+            self.__dev = "dev"
+            self.__root = here.parents[2]
+            self.__assets = self.__root.joinpath("assets")
+            self.__locales = self.__assets.joinpath("locales")
+
+    def _setup(self):
+        os.environ[self.DEV] = self.__dev
+        os.environ[self.ROOT] = str(self.__root)
+        os.environ[self.ASSETS] = str(self.__assets)
+        os.environ[self.LOCALES] = str(self.__locales)
+        if self.__tmpl:
+            os.environ[self.TMPL] = str(self.__tmpl)
+
+    def _gettext(self):
+        current_locale, _ = locale.getdefaultlocale()
+        gettext.translation(
+            "messages",
+            localedir=os.environ["LOGO_MESSENGER_LOCALES"],
+            languages=["en"]
+        ).install()
+
+    def setup(self):
+        """Run setup for runtime environment."""
+        self._setup()
+        self._gettext()
+
+
+Environment().setup()
+
+# Import gettext strings here, after gettext initialization
 from logo import strings
 
 
