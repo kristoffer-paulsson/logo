@@ -109,9 +109,11 @@ venv.bak/
 
 .DS_Store
 
-/logo/
-/assets/icons/*
-!/assets/icons/.gitkeep
+/assets/images/*
+!/assets/images/.gitkeep
+
+/icons/*
+!/icons/.gitkeep
 
 /dev_env/primary/*
 /dev_env/secondary/*

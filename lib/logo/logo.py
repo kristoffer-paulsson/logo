@@ -31,7 +31,8 @@ Builder.load_string("""
     Malfunction
 """)
 
-KV_DIR = f"{os.path.dirname(__file__)}/kv"
+# KV_DIR = f"{os.path.dirname(__file__)}/kv"
+KV_DIR = os.environ["LOGO_MESSENGER_KV"]
 for kv_file in os.listdir(KV_DIR):
     Builder.load_file(os.path.join(KV_DIR, kv_file))
 

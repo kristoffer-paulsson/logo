@@ -15,10 +15,10 @@ from libangelos.misc import Loop
 from libangelos.policy.portfolio import PGroup
 from libangelos.policy.print import PrintPolicy
 
-from .common import Section
-from .dialogs import MessageDialog
-from .. import strings
-from ..action.contact import (
+from logo.baseclass.common import Section
+from logo.baseclass.dialogs import MessageDialog
+from logo import strings
+from logo.action.contact import (
     ContactsSelectAllAction,
     ContactsDeselectAllAction,
     ContactsMassFriendAction,

@@ -1,4 +1,4 @@
-from .common import Section
+from logo.baseclass.common import Section
 
 
 class Dashboard(Section):

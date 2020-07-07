@@ -11,10 +11,10 @@ from kivymd.uix.list import TwoLineAvatarListItem, IRightBodyTouch
 from kivymd.uix.menu import MDDropdownMenu
 from libangelos.misc import Loop
 
-from .common import Section
-from .dialogs import MessageDialog
-from .. import strings
-from ..action.message import SynchronizeMailAction, EmptyTrashAction
+from logo.baseclass.common import Section
+from logo.baseclass.dialogs import MessageDialog
+from logo import strings
+from logo.action.message import SynchronizeMailAction, EmptyTrashAction
 
 
 class IconRightMenu(IRightBodyTouch, MDIconButton):

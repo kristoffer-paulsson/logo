@@ -4,7 +4,7 @@ from kivy.app import App
 from kivymd.uix.dialog import BaseDialog
 from kivymd.uix.label import MDLabel
 
-from ..action.portfolio import PortfolioUpdateAction
+from logo.action.portfolio import PortfolioUpdateAction
 
 
 class DocView(MDLabel):

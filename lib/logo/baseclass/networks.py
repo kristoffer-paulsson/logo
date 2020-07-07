@@ -13,8 +13,8 @@ from libangelos.misc import Loop
 from libangelos.policy.portfolio import PGroup
 from libangelos.policy.print import PrintPolicy
 
-from .common import Section
-from .messages import LogoRecycleViewListItemMixin
+from logo.baseclass.common import Section
+from logo.baseclass.messages import LogoRecycleViewListItemMixin
 
 
 class NetworkListItem(LogoRecycleViewListItemMixin, OneLineAvatarIconListItem):

@@ -11,7 +11,7 @@ from kivymd.app import MDApp
 from libangelos.automatic import Automatic
 from libangelos.facade.facade import Facade
 from libangelos.ioc import Container, ContainerAware, Config, Handle
-from libangelos.logger import LogHandler
+# from libangelos.logger import LogHandler
 from libangelos.policy.lock import KeyLoader
 from libangelos.ssh.client import ClientsClient
 from libangelos.ssh.ssh import SessionManager
@@ -19,9 +19,11 @@ from libangelos.utils import Event
 
 from logo.vars import ENV_DEFAULT, ENV_IMMUTABLE, CONFIG_DEFAULT, CONFIG_IMMUTABLE
 
+# FIXME:
+#   Write a class that boots the environment based on platform.
 if getattr(sys, "frozen", True):
     # sys.path.append(os.path.abspath(__file__).split("lib")[0])
-    os.environ["LOGO_MESSENGER_ROOT"] = os.path.abspath(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+    os.environ["LOGO_MESSENGER_ROOT"] = os.path.abspath(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))
 # if getattr(sys, "frozen", False):  # bundle mode with PyInstaller
 #     os.environ["LOGO_MESSENGER_ROOT"] = sys._MEIPASS
 else:
@@ -29,11 +31,11 @@ else:
     os.environ["LOGO_MESSENGER_ROOT"] = os.path.abspath(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 os.environ["LOGO_MESSENGER_ASSETS"] = os.path.join(
-    os.environ["LOGO_MESSENGER_ROOT"], f"assets{os.sep}"
+    os.environ["LOGO_MESSENGER_ROOT"], "assets"
 )
-
-print(os.environ["LOGO_MESSENGER_ROOT"])
-print(os.environ["LOGO_MESSENGER_ASSETS"])
+os.environ["LOGO_MESSENGER_KV"] = os.path.join(
+    os.environ["LOGO_MESSENGER_ROOT"], "kv"
+)
 
 current_locale, _ = locale.getdefaultlocale()
 gettext.translation(
@@ -51,11 +53,11 @@ class Configuration(Config, Container):
         Container.__init__(self, self.__config())
 
     def __load(self, filename):
-        try:
-            with open(os.path.join(self.auto.dir.root, filename)) as jc:
-                return json.load(jc.read())
-        except FileNotFoundError:
+        path = os.path.join(self.auto.dir.root, filename)
+        if not os.path.isfile(path):
             return {}
+        with open(path) as jc:
+            return json.load(jc.read())
 
     def __config(self):
         return {
@@ -66,10 +68,12 @@ class Configuration(Config, Container):
                 ENV_DEFAULT,
             ),
             "config": lambda self: collections.ChainMap(
-                CONFIG_IMMUTABLE, self.__load("config.json"), CONFIG_DEFAULT
+                CONFIG_IMMUTABLE,
+                self.__load("config.json"),
+                CONFIG_DEFAULT
             ),
             "client": lambda self: Handle(ClientsClient),
-            "log": lambda self: LogHandler(self.config["logger"]),
+            # "log": lambda self: LogHandler(self.config["logger"]),
             "session": lambda self: SessionManager(),
             "facade": lambda self: Handle(Facade),
             "auto": lambda self: Automatic("Logo"),

@@ -78,6 +78,11 @@ class Translator(Command):
             logging.error(e, exc_info=True)
 
 
+# FIXME:
+#   Build a class to generate DMG files for macos distro
+#   https://www.recitalsoftware.com/blogs/148-howto-build-a-dmg-file-from-the-command-line-on-mac-os-x
+
+
 class BuildSetup(distutils.command.build.build):
     """Preparations and adaptions of building the app."""
 
@@ -127,11 +132,26 @@ with open(os.path.join(base_dir, "version.py")) as version:
     exec(version.read())
 
 # py2app options and datafiles
-DATA_FILES = [os.path.abspath(os.path.join(os.path.dirname("."),  "assets"))]
+DATA_FILES = [
+    os.path.abspath(os.path.join(os.path.dirname("."),  "assets")),
+    os.path.abspath(os.path.join(os.path.dirname("."),  "lib", "logo", "kv")),
+]
+
 OPTIONS = {
-    # "iconfile": "/path/to/icon/example.icns"
+    # Mitigate from libangelos: dataclasses
+    "packages": ",".join([
+        "logo", "libangelos", "asyncssh", "msgpack", "kivy", "kivymd", "plyer", "asyncio", "dataclasses",
+        "logging", "logging.config", "macos_keychain"
+    ]),
+    "iconfile": "./icons/dove.icns",
     "plist": {
-        "NSHumanReadableCopyright": "Copyright 2019-2020 (C) by Kristoffer Paulsson"
+        'CFBundleName': "LogoMessenger",
+        'CFBundleDisplayName': "LogoMessenger",
+        'CFBundleGetInfoString': "Λόγῳ is a safe messenger client. Logo means \"reason, matter, statement, remark, saying, word.\"",
+        'CFBundleIdentifier': "org.thotlm.osx.logo_messenger",
+        'CFBundleVersion': __version__,
+        'CFBundleShortVersionString': __version__,
+        'NSHumanReadableCopyright': u"Copyright © 2019-2020 by Kristoffer Paulsson.",
     }
 }
 
@@ -140,7 +160,7 @@ setup(
         "build": BuildSetup,
         "translate": Translator
     },
-    name="LogoMessenger",
+    name="logo",
     version=__version__,
     license="MIT",
     description="A safe messaging system",
@@ -171,11 +191,11 @@ setup(
         # Platform specific requirements
         # [Windows|Linux|Darwin]
         "py2app; platform_system == 'Darwin'",
-        "py2exe; platform_system == 'Windows'",
+        "py2exe; platform_system == 'Windows'"
     ],
-    packages=["logo"],
+    # packages=["logo"], # Incompatible with py2app
     package_dir={"": "lib"},
-    scripts=glob("bin/*"),
+    # scripts=glob("bin/*"),  # Incompatible with py2app
     # ext_modules=cythonize(LibraryScanner("lib", globlist, pkgdata, coredata).scan())
     # Py2app and Py2exe specifics
     app=["./bin/prod"],
