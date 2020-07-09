@@ -8,4 +8,4 @@
 __author__ = "Kristoffer Paulsson"
 __author_email__ = "kristoffer.paulsson@talenten.se"
 __url__ = "https://github.com/kristoffer-paulsson/logo"
-__version__ = "1.0b1"
+__version__ = "1.0.0b1"
