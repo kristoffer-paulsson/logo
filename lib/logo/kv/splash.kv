@@ -13,7 +13,7 @@
             id: logo_icon
             keep_ratio: True
             allow_stretch: True
-            source: f"{environ['LOGO_MESSENGER_ASSETS']}/images/logotype-light.png"
+            source: f"{environ['LOGO_MESSENGER_ASSETS']}/images/logotype-{app.theme_cls.theme_style.lower()}.png"
             canvas:
                 Color:
                     rgba: app.theme_cls.primary_color

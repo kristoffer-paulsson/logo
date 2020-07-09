@@ -109,6 +109,8 @@ venv.bak/
 
 .DS_Store
 
+test.py
+
 /assets/images/*
 !/assets/images/.gitkeep
 
@@ -121,5 +123,3 @@ venv.bak/
 !/dev_env/primary/.gitkeep
 !/dev_env/secondary/.gitkeep
 !/dev_env/tertiary/.gitkeep
-
-kitchensink/

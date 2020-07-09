@@ -53,21 +53,21 @@
             root.parent.parent.parent.dismiss()
     IconContactSheetItem:
         id: trust
-        text: "Export portfolio"
+        text: strings.TEXT_PORTFOLIO_EXPORT
         icon: "export-outline"
         on_release:
             ExportAction(entity=root.entity).start()
             root.parent.parent.parent.dismiss()
     IconContactSheetItem:
         id: trust
-        text: "Trust portfolio"
+        text: strings.TEXT_PORTFOLIO_TRUST
         icon: "shield-check-outline"
         on_release:
             TrustAction(entity=root.entity).start()
             root.parent.parent.parent.dismiss()
     IconContactSheetItem:
         id: verify
-        text: "Verify portfolio"
+        text: strings.TEXT_PORTFOLIO_VERIFY
         icon: "shield-key-outline"
         on_release:
             VerifyAction(entity=root.entity).start()

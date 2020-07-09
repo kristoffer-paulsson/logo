@@ -5,7 +5,9 @@ import uuid
 from kivy.app import App
 from kivy.core.clipboard import Clipboard
 from kivy.properties import StringProperty, ListProperty, ObjectProperty, Clock
+from kivymd.theming import ThemableBehavior
 from kivymd.toast import toast
+from kivymd.uix.behaviors import BackgroundColorBehavior
 from kivymd.uix.dialog import BaseDialog
 from kivymd.uix.menu import MDDropdownMenu
 from libangelos.document.messages import Mail
@@ -15,6 +17,7 @@ from libangelos.operation.export import ExportImportOperation
 from libangelos.policy.portfolio import PGroup
 from libangelos.policy.print import PrintPolicy
 
+from logo import strings
 from logo.baseclass.portfolios import PortfolioView
 
 
@@ -28,6 +31,8 @@ class LogoBaseDialog(BaseDialog):
 
     def _toolbar_action_dismiss(self):
         return ["chevron-left", lambda x: self.dismiss()]
+
+    # TODO: Make full screen dialogs themeable
 
 
 class MessageDialog(LogoBaseDialog):
@@ -73,7 +78,7 @@ class MessageDialog(LogoBaseDialog):
             self._app.ioc.facade.storage.vault.load_portfolio(
                 tid, PGroup.VERIFIER), wait=True))
 
-        self.source = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images/dove.png")
+        self.source = os.path.join(os.environ["LOGO_MESSENGER_ASSETS"], "images", "dove.png")
         self.posted = "{:%c}".format(self.__mail.posted) if self.__mail.posted else ""
         self.reply = self.__mail.reply
         self.subject = self.__mail.subject if self.__mail.subject else ""
@@ -86,7 +91,7 @@ class MessageDialog(LogoBaseDialog):
         return ["send", lambda x: self.send()]
 
     def _toolbar_action_report(self):
-        return ["alert-outline", lambda x: print("Report message")]
+        return ["alert-outline", lambda x: toast(strings.TEXT_MESSAGE_REPORT)]
 
     def _toolbar_action_reply(self):
         return ["reply", lambda x: self.reply_to()]
@@ -97,27 +102,27 @@ class MessageDialog(LogoBaseDialog):
                 {
                     "viewclass": "MDMenuItem",
                     "icon": "reply",
-                    "text": "Reply to",
+                    "text": strings.TEXT_MESSAGE_REPLY,
                     "callback": self.reply_to,
                 }, {
                     "viewclass": "MDMenuItem",
                     "icon": "forward",
-                    "text": "Forward to",
+                    "text": strings.TEXT_MESSAGE_FORWARD,
                     "callback": self.forward,
                 }, {
                     "viewclass": "MDMenuItem",
                     "icon": "share",
-                    "text": "Share with",
+                    "text": strings.TEXT_MESSAGE_SHARE,
                     "callback": self.share,
                 }, {
                     "viewclass": "MDMenuItem",
                     "icon": "email-plus-outline",
-                    "text": "Compose new",
+                    "text": strings.TEXT_MESSAGE_COMPOSE,
                     "callback": self.compose,
                 }, {
                     "viewclass": "MDMenuItem",
                     "icon": "trash-can-outline",
-                    "text": "Trash it",
+                    "text": strings.TEXT_MESSAGE_TRASH,
                     "callback": self.trash,
                 }
             ],
@@ -127,28 +132,35 @@ class MessageDialog(LogoBaseDialog):
         mail = Mail(nd={
             "owner": self.__mail.issuer,
             "reply": self.__mail.id,
-            "subject": "Reply to: %s" % (self.__mail.subject if self.__mail.subject else ""),
+            "subject": "{}: {}".format(
+                strings.TEXT_MESSAGE_REPLY, self.__mail.subject if self.__mail.subject else ""),
             "issuer": self._app.ioc.facade.data.portfolio.entity.id
         })
-        MessageDialog(MessageDialog.MODE_WRITER, mail, title="Reply").open()
+        MessageDialog(MessageDialog.MODE_WRITER, mail, title=strings.TEXT_REPLY).open()
         self.dismiss()
 
     def forward(self, *largs):
+        toast("Implement me!")
         print("Forward")
+        # FIXME: Implement me
 
     def compose(self, *largs):
         mail = Mail(nd={
             "owner": self.__mail.issuer,
             "issuer": self._app.ioc.facade.data.portfolio.entity.id
         })
-        MessageDialog(MessageDialog.MODE_WRITER, mail, title="Compose new").open()
+        MessageDialog(MessageDialog.MODE_WRITER, mail, title=strings.TEXT_MESSAGE_COMPOSE).open()
         self.dismiss()
 
     def share(self, *largs):
+        toast("Implement me!")
         print("Share")
+        # FIXME: Implement me
 
     def report(self, *largs):
+        toast("Implement me!")
         print("Report")
+        # FIXME: Implement me
 
     def trash(self, *largs):
         Loop.main().run(self._app.ioc.facade.api.mailbox.move_trash(self.__mail.id), wait=True)
@@ -169,9 +181,9 @@ class MessageDialog(LogoBaseDialog):
         self.dismiss()
 
 
-class PortfolioImporter(BaseDialog):
+class PortfolioImporter(LogoBaseDialog):
     id = ""
-    title = "Portfolio importer"
+    title = strings.TEXT_PORTFOLIO_IMPORTER_TITLE
     data = StringProperty()
 
     def load(self):
@@ -187,13 +199,13 @@ class PortfolioImporter(BaseDialog):
             pw.open()
             self.dismiss()
         except Exception as e:
-            toast("Failed parsing portfolio data.")
+            toast(strings.TEXT_PORTFOLIO_IMPORTER_FAILURE)
             logging.exception(e)
 
 
-class PortfolioExporter(BaseDialog):
-    id = ''
-    title = 'Portfolio exporter'
+class PortfolioExporter(LogoBaseDialog):
+    id = ""
+    title = strings.TEXT_PORTFOLIO_EXPORTER_TITLE
     data = StringProperty()
 
     def load(self, entity: uuid.UUID=None):
@@ -211,4 +223,4 @@ class PortfolioExporter(BaseDialog):
 
     def copy(self):
         Clipboard.copy(self.data)
-        toast("Copied portfolio to clipboard.")
+        toast(strings.TEXT_PORTFOLIO_EXPORTER_FAILURE)

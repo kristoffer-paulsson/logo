@@ -232,13 +232,14 @@ class AbstractSetupGuide(ThemableBehavior, Screen):
             ), wait=True
         )
         app.ioc.facade = facade
+        app.ioc.facade.data.prefs["NightMode"] = False
 
     def goto_app(self):
         self.parent.current = "home"
 
 
 class ChurchSetupGuide(AbstractSetupGuide):
-    tmpl = lambda self, x: f"City: {x.city or ''}\nRegion: {x.region or ''}\nCountry: {x.country or ''}\nFounded: {x.founded or ''}"
+    tmpl = lambda self, x: f"{strings.TEXT_CITY}: {x.city or ''}\n{strings.TEXT_REGION}: {x.region or ''}\n{strings.TEXT_COUNTRY}: {x.country or ''}\n{strings.TEXT_FOUNDED}: {x.founded or ''}"
     countries = []
     country = ObjectProperty()
 
@@ -280,7 +281,7 @@ class ChurchSetupGuide(AbstractSetupGuide):
 
 
 class MinistrySetupGuide(AbstractSetupGuide):
-    tmpl = lambda self, x: f"Ministry: {x.ministry or ''}\nFounded: {x.founded or ''}\nVision: {x.vision or ''}"
+    tmpl = lambda self, x: f"{strings.TEXT_MINISTRY}: {x.ministry or ''}\n{strings.TEXT_FOUNDED}: {x.founded or ''}\n{strings.TEXT_VISION}: {x.vision or ''}"
 
     def __init__(self, **kwargs):
         AbstractSetupGuide.__init__(self, Ministry(), **kwargs)
@@ -307,7 +308,7 @@ class MinistrySetupGuide(AbstractSetupGuide):
 
 
 class PersonSetupGuide(AbstractSetupGuide):
-    tmpl = lambda self, x: f"Name: {x.given_name or ''} {x.family_name or ''}\nForename(s): {x if not list else ' '.join(x.names) if x.names else ''}\nSex: {str(x.sex).capitalize() if x.sex else ''}\nBirthdate: {x.born or ''}"
+    tmpl = lambda self, x: f"{strings.TEXT_NAME}: {x.given_name or ''} {x.family_name or ''}\n{strings.TEXT_FORNAME}: {x if not list else ' '.join(x.names) if x.names else ''}\n{strings.TEXT_SEX}: {str(x.sex).capitalize() if x.sex else ''}\n{strings.TEXT_BIRTHDATE}: {x.born or ''}"
 
     def __init__(self, **kwargs):
         AbstractSetupGuide.__init__(self, Person(), **kwargs)

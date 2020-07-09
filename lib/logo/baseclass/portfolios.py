@@ -4,8 +4,10 @@ from kivy.app import App
 from kivymd.uix.dialog import BaseDialog
 from kivymd.uix.label import MDLabel
 
+from logo import strings
 from logo.action.portfolio import PortfolioUpdateAction
 
+# TODO: Translate first when portdolios are implemented
 
 class DocView(MDLabel):
     pass
@@ -13,7 +15,7 @@ class DocView(MDLabel):
 
 class PortfolioView(BaseDialog):
     id = ""
-    title = "View portfolio"
+    title = strings.TEXT_PORTFOLIO_DIALOG_TITLE
 
     def load(self, portfolio):
         """Prepare the message composer dialog box."""

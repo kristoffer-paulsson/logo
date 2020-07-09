@@ -82,7 +82,7 @@ class ContactBottomSheetContent(BoxLayout):
             "owner": self.entity,
             "issuer": self._app.ioc.facade.data.portfolio.entity.id
         })
-        MessageDialog(MessageDialog.MODE_WRITER, mail, title="Compose new").open()
+        MessageDialog(MessageDialog.MODE_WRITER, mail, title=strings.TEXT_COMPOSE_NEW).open()
 
 
 class ContactListItem(RecycleDataViewBehavior, OneLineAvatarIconListItem):
@@ -175,6 +175,8 @@ class Contacts(Section):
 
     def on_pre_enter(self, *args):
         """Prepare menus."""
+        self.ids.panel.on_resize()
+
         def commit(action, tab_name, dt):
             """Selected menu command callback."""
             content = self.ids.get(tab_name).ids.content

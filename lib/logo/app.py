@@ -13,6 +13,7 @@ from libangelos.automatic import Automatic
 from libangelos.facade.facade import Facade
 from libangelos.ioc import Container, ContainerAware, Config, Handle
 # from libangelos.logger import LogHandler
+from libangelos.misc import Misc
 from libangelos.policy.lock import KeyLoader
 from libangelos.ssh.client import ClientsClient
 from libangelos.ssh.ssh import SessionManager
@@ -122,14 +123,16 @@ class LogoMessenger(ContainerAware, MDApp):
         ContainerAware.__init__(self, Configuration())
         MDApp.__init__(self, **kwargs)
 
-        self.theme_cls.primary_palette = "LightGreen"
-
     @property
     def key_loader(self):
         return KeyLoader
 
     def build(self):
+        self.theme_cls.primary_palette = "LightGreen"
+        self.theme_cls.theme_style = "Dark"
+
         from logo.logo import Logo
+
         widget = Logo()
         widget.opacity = 0
         Animation(opacity=2, d=0.5).start(widget)
@@ -137,7 +140,10 @@ class LogoMessenger(ContainerAware, MDApp):
 
     def on_start(self):
         """Creates a list of items with examples on start screen."""
-        pass
 
     async def open_facade(self):
         self.ioc.facade = await Facade.open(self.user_data_dir, self.key_loader.get())
+        # TODO: This is a workaround for bug in loading preferences.
+        #   self.ioc.facade.data.prefs["NightMode"]
+        self.theme_cls.theme_style = "Dark" if Misc.from_ini(
+            self.ioc.facade.api.settings.get("Preferences", "NightMode")) else "Light"

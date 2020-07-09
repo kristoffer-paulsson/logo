@@ -3,7 +3,7 @@ import logging
 import os
 
 from kivy.app import App
-from kivy.properties import StringProperty, ObjectProperty, NumericProperty, BooleanProperty
+from kivy.properties import StringProperty, ObjectProperty, NumericProperty, BooleanProperty, Clock
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.recycleview import RecycleDataAdapter, RecycleView
 from kivymd.uix.button import MDIconButton
@@ -41,7 +41,7 @@ class LogoRecycleViewListItemMixin:
         if callable(method):
             method(**kwargs)
         else:
-            raise RuntimeError("Method %s not found on %s" % (name + str(tab), str(self)))
+            raise RuntimeError("Method {} not found on {}".format(name + str(tab), str(self)))
 
     def err(self, e):
         pass
@@ -96,7 +96,7 @@ class MessageListItem(LogoRecycleViewListItemMixin, TwoLineAvatarListItem):
             self._app.ioc.facade.api.mailbox.open_envelope(
                 self.item_id), wait=True)
 
-        MessageDialog(MessageDialog.MODE_READER_RECEIVE, mail, title="Inbox message").open()
+        MessageDialog(MessageDialog.MODE_READER_RECEIVE, mail, title=strings.TEXT_MESSAGE_INBOX_TITLE).open()
 
     def _populate_outbox(self):
         info = Loop.main().run(
@@ -130,7 +130,7 @@ class MessageListItem(LogoRecycleViewListItemMixin, TwoLineAvatarListItem):
             self._app.ioc.facade.api.mailbox.get_draft(
                 self.item_id), wait=True)
 
-        MessageDialog(MessageDialog.MODE_WRITER, mail, title="Draft").open()
+        MessageDialog(MessageDialog.MODE_WRITER, mail, title=strings.TEXT_DRAFT).open()
 
     def _populate_read(self):
         info = Loop.main().run(
@@ -149,7 +149,7 @@ class MessageListItem(LogoRecycleViewListItemMixin, TwoLineAvatarListItem):
             self._app.ioc.facade.api.mailbox.get_read(
                 self.item_id), wait=True)
 
-        MessageDialog(MessageDialog.MODE_READER_RECEIVE, mail, title="Message").open()
+        MessageDialog(MessageDialog.MODE_READER_RECEIVE, mail, title=strings.TEXT_MESSAGE).open()
 
     def _populate_trash(self):
         info = Loop.main().run(
@@ -168,7 +168,7 @@ class MessageListItem(LogoRecycleViewListItemMixin, TwoLineAvatarListItem):
             self._app.ioc.facade.api.mailbox.get_trash(
                 self.item_id), wait=True)
 
-        MessageDialog(MessageDialog.MODE_READER_RECEIVE, mail, title="Trashed message").open()
+        MessageDialog(MessageDialog.MODE_READER_RECEIVE, mail, title=strings.TEXT_MESSAGE_TRASH_TITLE).open()
 
 
 class LogoRecycleDataAdapter(RecycleDataAdapter):
@@ -238,6 +238,8 @@ class Messages(Section):
 
     def on_pre_enter(self, *args):
         """Prepare menus."""
+        self.ids.panel.on_resize()
+
         def commit(action, tab_name, dt):
             """Selected menu command callback."""
             content = self.ids.get(tab_name).ids.content
@@ -261,7 +263,7 @@ class Messages(Section):
         self.menus[self.ids.panel.ids.tab_manager.current].open()
 
     def list_inbox(self, page):
-        "load all favorite contacts."
+        """load all favorite contacts."""
         self.__load_rv(
             self._app.ioc.facade.api.mailbox.load_inbox(),
             page.children[0].ids.content,

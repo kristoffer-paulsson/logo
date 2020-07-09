@@ -19,7 +19,7 @@
             MDList:
                 id: prefs
                 OneLineIconListItem:
-                    text: "Portfolio"
+                    text: strings.TEXT_PORTFOLIO
                     on_release: root.open_portfolio_sheet()
                     IconLeftWidget:
                         icon: "shield-home-outline"
@@ -32,9 +32,10 @@
                         on_active:
                             if self.active: app.theme_cls.theme_style = "Dark"
                             else: app.theme_cls.theme_style = "Light"
+                            app.ioc.facade.data.prefs["NightMode"] = self.active
                 TwoLineIconListItem:
-                    text: "Contact synchro"
-                    secondary_text: "Synchronize portfolio entities with contacts."
+                    text: strings.TEXT_PREFERENCES_SYNCHRO
+                    secondary_text: strings.TEXT_PREFERENCES_SYNCHRO_HELP
                     secondary_font_style: "Caption"
                     secondary_theme_text_color: "Custom"
                     secondary_text_color: app.theme_cls.primary_color
@@ -42,25 +43,11 @@
                     IconLeftWidget:
                         icon: "account-convert"
                 TwoLineIconListItem:
-                    text: "Index Networks"
-                    secondary_text: "Index available networks that are connectable."
+                    text: strings.TEXT_PREFERENCES_NETWORKS
+                    secondary_text: strings.TEXT_PREFERENCES_NETWORKS_HELP
                     secondary_font_style: "Caption"
                     secondary_theme_text_color: "Custom"
                     secondary_text_color: app.theme_cls.primary_color
                     on_release: root.network_index()
                     IconLeftWidget:
                         icon: "plus-network-outline"
-                # TwoLineListItem:
-                #    text: "Dummy generator"
-                #    secondary_text: "Click to generate 20 new entities."
-                #    secondary_font_style: "Caption"
-                #    secondary_theme_text_color: "Custom"
-                #    secondary_text_color: app.theme_cls.primary_color
-                #    on_release: root.generate_dummys()
-                # TwoLineListItem:
-                #    text: "Dummy mailer"
-                #    secondary_text: "Click to send 10 mails to myself."
-                #    secondary_font_style: "Caption"
-                #    secondary_theme_text_color: "Custom"
-                #    secondary_text_color: app.theme_cls.primary_color
-                #    on_release: root.generate_mail()

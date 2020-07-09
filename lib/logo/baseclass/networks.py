@@ -13,6 +13,7 @@ from libangelos.misc import Loop
 from libangelos.policy.portfolio import PGroup
 from libangelos.policy.print import PrintPolicy
 
+from logo import strings
 from logo.baseclass.common import Section
 from logo.baseclass.messages import LogoRecycleViewListItemMixin
 
@@ -44,7 +45,7 @@ class NetworkListItem(LogoRecycleViewListItemMixin, OneLineAvatarIconListItem):
                 self.data.get("item_id"), PGroup.VERIFIER), wait=True)
 
         self._app.ioc.facade.data.client["CurrentNetwork"] = portfolio.entity.id
-        toast("%s selected as primary network" % PrintPolicy.title(portfolio))
+        toast("{} {}".format(PrintPolicy.title(portfolio), strings.TEXT_NETWORK_SELECTED))
 
     def on_selected(self, instance, value):
         """Update the data."""
