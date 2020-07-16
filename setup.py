@@ -183,7 +183,7 @@ OPTIONS = {
     # Mitigate from libangelos: dataclasses
     "packages": ",".join([
         "logo", "libangelos", "asyncssh", "msgpack", "kivy", "kivymd", "plyer", "asyncio", "dataclasses",
-        "logging", "logging.config", "macos_keychain"
+        "logging", "logging.config"
     ]),
     "iconfile": "./icons/dove.icns",
     "plist": {
@@ -226,7 +226,7 @@ setup(
     python_requires="~=3.7",
     install_requires=[
         # First install libangelos manually:
-        # pip install git+https://github.com/kristoffer-paulsson/angelos.git
+        # pip install git+https://github.com/kristoffer-paulsson/angelos.git@1.0.0b1
         # Build tools requirements
         "cython",
         # Software import requirements
@@ -234,7 +234,7 @@ setup(
         # Platform specific requirements
         # [Windows|Linux|Darwin]
         "py2app; platform_system == 'Darwin'",
-        "py2exe; platform_system == 'Windows'"
+        "py2exe; platform_system == 'Windows'",
     ],
     # packages=["logo"], # Incompatible with py2app
     package_dir={"": "lib"},

@@ -14,7 +14,7 @@ import binascii
 
 
 from kivy.app import App
-from libangelos.policy.lock import KeyLoader
+from logo.lock import PlatformFactory
 from libangelos.utils import Util
 
 from logo.app import LogoMessenger
@@ -51,7 +51,7 @@ class DevLogoMessenger(LogoMessenger):
         )
         return parser
 
-    class DevKeyLoader(KeyLoader):
+    class DevKeyLoader(PlatformFactory().get_key_loader()):
         """KeyLoader that saves the keys in clear text under development."""
 
         @staticmethod

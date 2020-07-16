@@ -329,7 +329,6 @@ class Messages(Section):
                     model["selected"] = False
                 data.append(model)
 
-
 menu_context = {
     "sync": ("sync", strings.TEXT_SYNCHRONIZE, SynchronizeMailAction),
     "empty": ("trash-can-outline", strings.TEXT_EMPTY, EmptyTrashAction),

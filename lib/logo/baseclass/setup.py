@@ -270,12 +270,12 @@ class ChurchSetupGuide(AbstractSetupGuide):
         self.ids.date_btn.disabled = True
 
     def _confirm(self):
-        entity_data = ChurchData()
-
-        entity_data.city = self.entity.city
-        entity_data.founded = self.entity.founded
-        entity_data.region = self.entity.region
-        entity_data.country = self.entity.country
+        entity_data = ChurchData(
+            city=self.entity.city,
+            founded=self.entity.founded,
+            region=self.entity.region,
+            country=self.entity.country
+        )
 
         return entity_data, SetupChurchOperation
 
@@ -298,11 +298,11 @@ class MinistrySetupGuide(AbstractSetupGuide):
         self.ids.date_btn.disabled = True
 
     def _confirm(self):
-        entity_data = MinistryData()
-
-        entity_data.ministry = self.entity.ministry
-        entity_data.vision = self.entity.vision
-        entity_data.founded = self.entity.founded
+        entity_data = MinistryData(
+            ministry=self.entity.ministry,
+            vision=self.entity.vision,
+            founded=self.entity.founded
+        )
 
         return entity_data, SetupMinistryOperation
 
@@ -330,13 +330,13 @@ class PersonSetupGuide(AbstractSetupGuide):
         self.ids.date_btn.disabled = True
 
     def _confirm(self):
-        entity_data = PersonData()
-
-        entity_data.given_name = self.entity.given_name
-        entity_data.names = self.entity.names
-        entity_data.family_name = self.entity.family_name
-        entity_data.sex = self.entity.sex
-        entity_data.born = self.entity.born
+        entity_data = PersonData(
+            given_name=self.entity.given_name,
+            names=self.entity.names,
+            family_name=self.entity.family_name,
+            sex=self.entity.sex,
+            born=self.entity.born
+        )
 
         return entity_data, SetupPersonOperation
 
