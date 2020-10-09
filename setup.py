@@ -230,16 +230,11 @@ setup(
         # Build tools requirements
         "cython",
         # Software import requirements
-        "docutils; platform_system == 'Windows'",  # Installation of packages in special order not to mess up in Win10
-        "pygments; platform_system == 'Windows'",
-        "pypiwin32; platform_system == 'Windows'",
-        "kivy.deps.sdl2; platform_system == 'Windows'",
-        "kivy.deps.glew; platform_system == 'Windows'",
         "kivy~=1.11", "kivymd",
         # Platform specific requirements
         # [Windows|Linux|Darwin]
         "py2app; platform_system == 'Darwin'",
-        "py2exe; platform_system == 'Windows'",
+        #"py2exe; platform_system == 'Windows'",
     ],
     # packages=["logo"], # Incompatible with py2app
     package_dir={"": "lib"},
