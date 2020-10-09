@@ -7,8 +7,8 @@
 """User actions related to contacts."""
 from logo import strings
 from logo.misc import ActionABC
-from libangelos.policy.portfolio import PGroup
-from libangelos.policy.verify import StatementPolicy
+from angelos.lib.policy.portfolio import PGroup
+from angelos.lib.policy.verify import StatementPolicy
 
 
 class ContactAction(ActionABC):

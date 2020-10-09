@@ -1,4 +1,4 @@
-#! python
+#!/usr/bin/python
 
 import os
 import sys
@@ -15,7 +15,7 @@ import binascii
 
 from kivy.app import App
 from logo.lock import PlatformFactory
-from libangelos.utils import Util
+from angelos.common.utils import Util
 
 from logo.app import LogoMessenger
 

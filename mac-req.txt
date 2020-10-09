@@ -1,0 +1,4 @@
+cython
+kivy~=1.11
+kivymd
+py2app

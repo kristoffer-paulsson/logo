@@ -9,7 +9,7 @@ from kivy.uix.recycleview import RecycleDataAdapter, RecycleView
 from kivymd.uix.button import MDIconButton
 from kivymd.uix.list import TwoLineAvatarListItem, IRightBodyTouch
 from kivymd.uix.menu import MDDropdownMenu
-from libangelos.misc import Loop
+from angelos.common.misc import Loop
 
 from logo.baseclass.common import Section
 from logo.baseclass.dialogs import MessageDialog

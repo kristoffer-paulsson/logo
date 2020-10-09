@@ -1,8 +1,8 @@
 import logging
 
 from kivymd.toast import toast
-from libangelos.document.statements import Statement
-from libangelos.error import PortfolioAlreadyExists
+from angelos.document.statements import Statement
+from angelos.lib.error import PortfolioAlreadyExists
 
 from logo.misc import ActionABC
 

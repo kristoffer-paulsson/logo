@@ -9,8 +9,8 @@ import logging
 import uuid
 from typing import Awaitable
 
-from libangelos.policy.portfolio import Portfolio, PGroup
-from libangelos.starter import Starter
+from angelos.lib.policy.portfolio import Portfolio, PGroup
+from angelos.lib.starter import Starter
 
 from logo import strings
 from logo.misc import ActionABC

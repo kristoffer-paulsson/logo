@@ -10,12 +10,12 @@ from kivymd.toast import toast
 from kivymd.uix.behaviors import BackgroundColorBehavior
 from kivymd.uix.dialog import BaseDialog
 from kivymd.uix.menu import MDDropdownMenu
-from libangelos.document.messages import Mail
-from libangelos.helper import Glue
-from libangelos.misc import Loop
-from libangelos.operation.export import ExportImportOperation
-from libangelos.policy.portfolio import PGroup
-from libangelos.policy.print import PrintPolicy
+from angelos.document.messages import Mail
+from angelos.lib.helper import Glue
+from angelos.common.misc import Loop
+from angelos.lib.operation.export import ExportImportOperation
+from angelos.lib.policy.portfolio import PGroup
+from angelos.lib.policy.format import PrintPolicy
 
 from logo import strings
 from logo.baseclass.portfolios import PortfolioView

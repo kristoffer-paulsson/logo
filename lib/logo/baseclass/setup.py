@@ -10,14 +10,14 @@ from kivymd.uix.button import MDFlatButton
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.menu import MDDropdownMenu
 from kivymd.uix.picker import MDDatePicker
-from libangelos.const import Const
-from libangelos.document.entities import Church, Ministry, Person
-from libangelos.document.entity_mixin import ChurchMixin, MinistryMixin, PersonMixin
-from libangelos.facade.facade import Facade
-from libangelos.library.nacl import SecretBox
-from libangelos.misc import Loop
-from libangelos.operation.setup import SetupChurchOperation, SetupMinistryOperation, SetupPersonOperation
-from libangelos.policy.types import ChurchData, MinistryData, PersonData
+from angelos.lib.const import Const
+from angelos.document.entities import Church, Ministry, Person
+from angelos.document.entity_mixin import ChurchMixin, MinistryMixin, PersonMixin
+from angelos.lib.facade.facade import Facade
+from angelos.bin.nacl import SecretBox
+from angelos.common.misc import Loop
+from angelos.lib.operation.setup import SetupChurchOperation, SetupMinistryOperation, SetupPersonOperation
+from angelos.lib.policy.types import ChurchData, MinistryData, PersonData
 
 from logo import strings
 

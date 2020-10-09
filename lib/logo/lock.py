@@ -20,7 +20,7 @@ import platform
 from abc import ABC, abstractmethod
 from subprocess import Popen, PIPE
 
-from libangelos.library.nacl import SecretBox
+from angelos.bin.nacl import SecretBox
 
 
 class BaseKeyLoader(ABC):

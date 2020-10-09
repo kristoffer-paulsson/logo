@@ -1,8 +1,8 @@
 from kivy.app import App
 from kivymd.toast import toast
 from kivymd.uix.bottomsheet import MDListBottomSheet
-from libangelos.misc import Loop
-from libangelos.task.task import TaskWaitress
+from angelos.common.misc import Loop
+from angelos.lib.task.task import TaskWaitress
 
 from logo import strings
 from logo.baseclass.common import Section

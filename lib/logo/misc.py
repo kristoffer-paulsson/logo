@@ -10,7 +10,7 @@ from abc import ABC
 from kivy.app import App
 from kivymd.toast import toast
 from kivymd.uix.dialog import MDDialog
-from libangelos.misc import Loop
+from angelos.common.misc import Loop
 
 from logo import strings
 

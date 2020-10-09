@@ -9,15 +9,15 @@ import sys
 from kivy.animation import Animation
 from kivy.properties import StringProperty
 from kivymd.app import MDApp
-from libangelos.automatic import Automatic
-from libangelos.facade.facade import Facade
-from libangelos.ioc import Container, ContainerAware, Config, Handle
+from angelos.lib.automatic import Automatic
+from angelos.lib.facade.facade import Facade
+from angelos.lib.ioc import Container, ContainerAware, Config, Handle
 # from libangelos.logger import LogHandler
-from libangelos.misc import Misc
+from angelos.common.misc import Misc
 from logo.lock import PlatformFactory
-from libangelos.ssh.client import ClientsClient
-from libangelos.ssh.ssh import SessionManager
-from libangelos.utils import Event
+from angelos.lib.ssh.client import ClientsClient
+from angelos.lib.ssh.ssh import SessionManager
+from angelos.common.utils import Event
 
 from logo.vars import ENV_DEFAULT, ENV_IMMUTABLE, CONFIG_DEFAULT, CONFIG_IMMUTABLE
 

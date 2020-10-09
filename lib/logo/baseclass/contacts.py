@@ -10,10 +10,10 @@ from kivy.uix.recycleview.views import RecycleDataViewBehavior, RecycleDataAdapt
 from kivymd.uix.bottomsheet import MDCustomBottomSheet
 from kivymd.uix.list import OneLineAvatarIconListItem, OneLineAvatarListItem, OneLineIconListItem
 from kivymd.uix.menu import MDDropdownMenu
-from libangelos.document.messages import Mail
-from libangelos.misc import Loop
-from libangelos.policy.portfolio import PGroup
-from libangelos.policy.print import PrintPolicy
+from angelos.document.messages import Mail
+from angelos.common.misc import Loop
+from angelos.lib.policy.portfolio import PGroup
+from angelos.lib.policy.format import PrintPolicy
 
 from logo.baseclass.common import Section
 from logo.baseclass.dialogs import MessageDialog

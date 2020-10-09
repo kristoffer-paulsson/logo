@@ -13,7 +13,7 @@ might effect the runtime of the software. Configurational variables in
 particular are used to configure services available from the IoC container.
 """
 
-from libangelos.const import Const
+from angelos.lib.const import Const
 
 """Environment default values."""
 ENV_DEFAULT = {"name": "Logo"}
@@ -58,6 +58,7 @@ CONFIG_IMMUTABLE = {
             },
         },
         "loggers": {
+"""
             Const.LOG_ERR: {  # LOG_ERR is used to log system errors
                 "level": "INFO",
                 # 'propagate': None,
@@ -76,6 +77,7 @@ CONFIG_IMMUTABLE = {
                 "filters": [],
                 "handlers": ["default"],
             },
+"""
             "asyncio": {  # 'asyncio' is used to log business events
                 "level": "WARNING",
                 # 'propagate': None,

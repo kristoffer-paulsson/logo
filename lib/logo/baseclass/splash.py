@@ -5,9 +5,9 @@ from kivy.app import App
 from kivy.properties import BoundedNumericProperty
 from kivy.uix.screenmanager import Screen
 from kivymd.theming import ThemableBehavior
-from libangelos.const import Const
-from libangelos.misc import Loop
-from libangelos.utils import Util
+from angelos.lib.const import Const
+from angelos.common.misc import Loop
+from angelos.common.utils import Util
 
 
 class Splash(ThemableBehavior, Screen):

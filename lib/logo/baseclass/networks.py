@@ -9,9 +9,9 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.recycleview import RecycleView, RecycleDataAdapter
 from kivymd.toast import toast
 from kivymd.uix.list import OneLineAvatarIconListItem
-from libangelos.misc import Loop
-from libangelos.policy.portfolio import PGroup
-from libangelos.policy.print import PrintPolicy
+from angelos.common.misc import Loop
+from angelos.lib.policy.portfolio import PGroup
+from angelos.lib.policy.format import PrintPolicy
 
 from logo import strings
 from logo.baseclass.common import Section
