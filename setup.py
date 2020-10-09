@@ -230,7 +230,12 @@ setup(
         # Build tools requirements
         "cython",
         # Software import requirements
-        "kivy", "kivymd",
+        "docutils; platform_system == 'Windows'",  # Installation of packages in special order not to mess up in Win10
+        "pygments; platform_system == 'Windows'",
+        "pypiwin32; platform_system == 'Windows'",
+        "kivy.deps.sdl2; platform_system == 'Windows'",
+        "kivy.deps.glew; platform_system == 'Windows'",
+        "kivy~=1.11", "kivymd",
         # Platform specific requirements
         # [Windows|Linux|Darwin]
         "py2app; platform_system == 'Darwin'",
@@ -243,7 +248,7 @@ setup(
     # Py2app and Py2exe specifics
     app=["./bin/prod"],
     data_files=DATA_FILES,
-    options={"py2app": OPTIONS},
+    options={"py2app": OPTIONS, "py2exe": OPTIONS},
     # TODO: Windows version
     # TODO: Linux Gnome version
     # TODO: Linux QT Version
