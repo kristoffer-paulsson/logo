@@ -14,7 +14,7 @@ from angelos.lib.facade.facade import Facade
 from angelos.lib.ioc import Container, ContainerAware, Config, Handle
 # from libangelos.logger import LogHandler
 from angelos.common.misc import Misc
-from logo.lock import PlatformFactory
+from angelos.psi.keyloader import KeyLoader
 from angelos.lib.ssh.client import ClientsClient
 from angelos.lib.ssh.ssh import SessionManager
 from angelos.common.utils import Event
@@ -125,7 +125,7 @@ class LogoMessenger(ContainerAware, MDApp):
 
     @property
     def key_loader(self):
-        return PlatformFactory().get_key_loader()
+        return KeyLoader
 
     def build(self):
         self.theme_cls.primary_palette = "LightGreen"
