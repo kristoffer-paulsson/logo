@@ -182,8 +182,8 @@ DATA_FILES = [
 OPTIONS = {
     # Mitigate from libangelos: dataclasses
     "packages": ",".join([
-        "logo", "libangelos", "asyncssh", "msgpack", "kivy", "kivymd", "plyer", "asyncio", "dataclasses",
-        "logging", "logging.config"
+        "logo", "angelos", "asyncssh", "msgpack", "kivy", "kivymd", "plyer", "asyncio", "dataclasses", "logging",
+        "logging.config"
     ]),
     "iconfile": "./icons/dove.icns",
     "plist": {
